@@ -1247,15 +1247,11 @@ func (m *UserInfo) validate(all bool) error {
 
 	// no validation rules for Username
 
-	// no validation rules for Uid
+	// no validation rules for FullName
 
 	// no validation rules for PhoneNumber
 
-	// no validation rules for FullName
-
-	// no validation rules for AvatarUrl
-
-	// no validation rules for Role
+	// no validation rules for IsVerified
 
 	if all {
 		switch v := interface{}(m.GetCreatedAt()).(type) {
@@ -1286,7 +1282,34 @@ func (m *UserInfo) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for IsActive
+	if all {
+		switch v := interface{}(m.GetUpdatedAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UserInfoValidationError{
+					field:  "UpdatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UserInfoValidationError{
+					field:  "UpdatedAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUpdatedAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UserInfoValidationError{
+				field:  "UpdatedAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return UserInfoMultiError(errors)
