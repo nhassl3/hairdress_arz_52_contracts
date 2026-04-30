@@ -35,22 +35,22 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on SendCodeRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *SendCodeRequest) Validate() error {
+// Validate checks the field values on RequestSmsCodeRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RequestSmsCodeRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on SendCodeRequest with the rules
+// ValidateAll checks the field values on RequestSmsCodeRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// SendCodeRequestMultiError, or nil if none found.
-func (m *SendCodeRequest) ValidateAll() error {
+// RequestSmsCodeRequestMultiError, or nil if none found.
+func (m *RequestSmsCodeRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *SendCodeRequest) validate(all bool) error {
+func (m *RequestSmsCodeRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -58,7 +58,7 @@ func (m *SendCodeRequest) validate(all bool) error {
 	var errors []error
 
 	if len(m.GetPhoneNumber()) > 24 {
-		err := SendCodeRequestValidationError{
+		err := RequestSmsCodeRequestValidationError{
 			field:  "PhoneNumber",
 			reason: "value length must be at most 24 bytes",
 		}
@@ -68,8 +68,8 @@ func (m *SendCodeRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_SendCodeRequest_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
-		err := SendCodeRequestValidationError{
+	if !_RequestSmsCodeRequest_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
+		err := RequestSmsCodeRequestValidationError{
 			field:  "PhoneNumber",
 			reason: "value does not match regex pattern \"^(\\\\+7|8|7)[\\\\s\\\\-]?\\\\(?[489][0-9]{2}\\\\)?[\\\\s\\\\-]?[0-9]{3}[\\\\s\\\\-]?[0-9]{2}[\\\\s\\\\-]?[0-9]{2}$\"",
 		}
@@ -80,19 +80,19 @@ func (m *SendCodeRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return SendCodeRequestMultiError(errors)
+		return RequestSmsCodeRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// SendCodeRequestMultiError is an error wrapping multiple validation errors
-// returned by SendCodeRequest.ValidateAll() if the designated constraints
-// aren't met.
-type SendCodeRequestMultiError []error
+// RequestSmsCodeRequestMultiError is an error wrapping multiple validation
+// errors returned by RequestSmsCodeRequest.ValidateAll() if the designated
+// constraints aren't met.
+type RequestSmsCodeRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m SendCodeRequestMultiError) Error() string {
+func (m RequestSmsCodeRequestMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -101,11 +101,11 @@ func (m SendCodeRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m SendCodeRequestMultiError) AllErrors() []error { return m }
+func (m RequestSmsCodeRequestMultiError) AllErrors() []error { return m }
 
-// SendCodeRequestValidationError is the validation error returned by
-// SendCodeRequest.Validate if the designated constraints aren't met.
-type SendCodeRequestValidationError struct {
+// RequestSmsCodeRequestValidationError is the validation error returned by
+// RequestSmsCodeRequest.Validate if the designated constraints aren't met.
+type RequestSmsCodeRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -113,22 +113,24 @@ type SendCodeRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e SendCodeRequestValidationError) Field() string { return e.field }
+func (e RequestSmsCodeRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SendCodeRequestValidationError) Reason() string { return e.reason }
+func (e RequestSmsCodeRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SendCodeRequestValidationError) Cause() error { return e.cause }
+func (e RequestSmsCodeRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SendCodeRequestValidationError) Key() bool { return e.key }
+func (e RequestSmsCodeRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SendCodeRequestValidationError) ErrorName() string { return "SendCodeRequestValidationError" }
+func (e RequestSmsCodeRequestValidationError) ErrorName() string {
+	return "RequestSmsCodeRequestValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e SendCodeRequestValidationError) Error() string {
+func (e RequestSmsCodeRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -140,14 +142,14 @@ func (e SendCodeRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSendCodeRequest.%s: %s%s",
+		"invalid %sRequestSmsCodeRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SendCodeRequestValidationError{}
+var _ error = RequestSmsCodeRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -155,26 +157,26 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SendCodeRequestValidationError{}
+} = RequestSmsCodeRequestValidationError{}
 
-var _SendCodeRequest_PhoneNumber_Pattern = regexp.MustCompile("^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$")
+var _RequestSmsCodeRequest_PhoneNumber_Pattern = regexp.MustCompile("^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$")
 
-// Validate checks the field values on SendCodeResponse with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *SendCodeResponse) Validate() error {
+// Validate checks the field values on RequestSmsCodeResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RequestSmsCodeResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on SendCodeResponse with the rules
+// ValidateAll checks the field values on RequestSmsCodeResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// SendCodeResponseMultiError, or nil if none found.
-func (m *SendCodeResponse) ValidateAll() error {
+// RequestSmsCodeResponseMultiError, or nil if none found.
+func (m *RequestSmsCodeResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *SendCodeResponse) validate(all bool) error {
+func (m *RequestSmsCodeResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -182,41 +184,10 @@ func (m *SendCodeResponse) validate(all bool) error {
 	var errors []error
 
 	if all {
-		switch v := interface{}(m.GetExpiresAt()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, SendCodeResponseValidationError{
-					field:  "ExpiresAt",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, SendCodeResponseValidationError{
-					field:  "ExpiresAt",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetExpiresAt()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return SendCodeResponseValidationError{
-				field:  "ExpiresAt",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	// no validation rules for AttemptsLeft
-
-	if all {
 		switch v := interface{}(m.GetCooldown()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, SendCodeResponseValidationError{
+				errors = append(errors, RequestSmsCodeResponseValidationError{
 					field:  "Cooldown",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -224,7 +195,7 @@ func (m *SendCodeResponse) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, SendCodeResponseValidationError{
+				errors = append(errors, RequestSmsCodeResponseValidationError{
 					field:  "Cooldown",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -233,7 +204,7 @@ func (m *SendCodeResponse) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetCooldown()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return SendCodeResponseValidationError{
+			return RequestSmsCodeResponseValidationError{
 				field:  "Cooldown",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -241,20 +212,49 @@ func (m *SendCodeResponse) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetExpiresAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, RequestSmsCodeResponseValidationError{
+					field:  "ExpiresAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, RequestSmsCodeResponseValidationError{
+					field:  "ExpiresAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetExpiresAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return RequestSmsCodeResponseValidationError{
+				field:  "ExpiresAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
-		return SendCodeResponseMultiError(errors)
+		return RequestSmsCodeResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// SendCodeResponseMultiError is an error wrapping multiple validation errors
-// returned by SendCodeResponse.ValidateAll() if the designated constraints
-// aren't met.
-type SendCodeResponseMultiError []error
+// RequestSmsCodeResponseMultiError is an error wrapping multiple validation
+// errors returned by RequestSmsCodeResponse.ValidateAll() if the designated
+// constraints aren't met.
+type RequestSmsCodeResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m SendCodeResponseMultiError) Error() string {
+func (m RequestSmsCodeResponseMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -263,11 +263,11 @@ func (m SendCodeResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m SendCodeResponseMultiError) AllErrors() []error { return m }
+func (m RequestSmsCodeResponseMultiError) AllErrors() []error { return m }
 
-// SendCodeResponseValidationError is the validation error returned by
-// SendCodeResponse.Validate if the designated constraints aren't met.
-type SendCodeResponseValidationError struct {
+// RequestSmsCodeResponseValidationError is the validation error returned by
+// RequestSmsCodeResponse.Validate if the designated constraints aren't met.
+type RequestSmsCodeResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -275,22 +275,24 @@ type SendCodeResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e SendCodeResponseValidationError) Field() string { return e.field }
+func (e RequestSmsCodeResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e SendCodeResponseValidationError) Reason() string { return e.reason }
+func (e RequestSmsCodeResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e SendCodeResponseValidationError) Cause() error { return e.cause }
+func (e RequestSmsCodeResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e SendCodeResponseValidationError) Key() bool { return e.key }
+func (e RequestSmsCodeResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e SendCodeResponseValidationError) ErrorName() string { return "SendCodeResponseValidationError" }
+func (e RequestSmsCodeResponseValidationError) ErrorName() string {
+	return "RequestSmsCodeResponseValidationError"
+}
 
 // Error satisfies the builtin error interface
-func (e SendCodeResponseValidationError) Error() string {
+func (e RequestSmsCodeResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -302,14 +304,14 @@ func (e SendCodeResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sSendCodeResponse.%s: %s%s",
+		"invalid %sRequestSmsCodeResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = SendCodeResponseValidationError{}
+var _ error = RequestSmsCodeResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -317,7 +319,292 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = SendCodeResponseValidationError{}
+} = RequestSmsCodeResponseValidationError{}
+
+// Validate checks the field values on VerifyCodeRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *VerifyCodeRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on VerifyCodeRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// VerifyCodeRequestMultiError, or nil if none found.
+func (m *VerifyCodeRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *VerifyCodeRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(m.GetPhoneNumber()) > 24 {
+		err := VerifyCodeRequestValidationError{
+			field:  "PhoneNumber",
+			reason: "value length must be at most 24 bytes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_VerifyCodeRequest_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
+		err := VerifyCodeRequestValidationError{
+			field:  "PhoneNumber",
+			reason: "value does not match regex pattern \"^(\\\\+7|8|7)[\\\\s\\\\-]?\\\\(?[489][0-9]{2}\\\\)?[\\\\s\\\\-]?[0-9]{3}[\\\\s\\\\-]?[0-9]{2}[\\\\s\\\\-]?[0-9]{2}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetCode()) < 6 {
+		err := VerifyCodeRequestValidationError{
+			field:  "Code",
+			reason: "value length must be at least 6 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_VerifyCodeRequest_Code_Pattern.MatchString(m.GetCode()) {
+		err := VerifyCodeRequestValidationError{
+			field:  "Code",
+			reason: "value does not match regex pattern \"^[0-9]{6}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return VerifyCodeRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// VerifyCodeRequestMultiError is an error wrapping multiple validation errors
+// returned by VerifyCodeRequest.ValidateAll() if the designated constraints
+// aren't met.
+type VerifyCodeRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m VerifyCodeRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m VerifyCodeRequestMultiError) AllErrors() []error { return m }
+
+// VerifyCodeRequestValidationError is the validation error returned by
+// VerifyCodeRequest.Validate if the designated constraints aren't met.
+type VerifyCodeRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e VerifyCodeRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e VerifyCodeRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e VerifyCodeRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e VerifyCodeRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e VerifyCodeRequestValidationError) ErrorName() string {
+	return "VerifyCodeRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e VerifyCodeRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sVerifyCodeRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = VerifyCodeRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = VerifyCodeRequestValidationError{}
+
+var _VerifyCodeRequest_PhoneNumber_Pattern = regexp.MustCompile("^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$")
+
+var _VerifyCodeRequest_Code_Pattern = regexp.MustCompile("^[0-9]{6}$")
+
+// Validate checks the field values on VerifyCodeResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *VerifyCodeResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on VerifyCodeResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// VerifyCodeResponseMultiError, or nil if none found.
+func (m *VerifyCodeResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *VerifyCodeResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for AccessToken
+
+	// no validation rules for RefreshToken
+
+	if all {
+		switch v := interface{}(m.GetUser()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, VerifyCodeResponseValidationError{
+					field:  "User",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, VerifyCodeResponseValidationError{
+					field:  "User",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return VerifyCodeResponseValidationError{
+				field:  "User",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return VerifyCodeResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// VerifyCodeResponseMultiError is an error wrapping multiple validation errors
+// returned by VerifyCodeResponse.ValidateAll() if the designated constraints
+// aren't met.
+type VerifyCodeResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m VerifyCodeResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m VerifyCodeResponseMultiError) AllErrors() []error { return m }
+
+// VerifyCodeResponseValidationError is the validation error returned by
+// VerifyCodeResponse.Validate if the designated constraints aren't met.
+type VerifyCodeResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e VerifyCodeResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e VerifyCodeResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e VerifyCodeResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e VerifyCodeResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e VerifyCodeResponseValidationError) ErrorName() string {
+	return "VerifyCodeResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e VerifyCodeResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sVerifyCodeResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = VerifyCodeResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = VerifyCodeResponseValidationError{}
 
 // Validate checks the field values on RegisterRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, the
