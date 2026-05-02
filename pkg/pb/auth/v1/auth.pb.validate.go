@@ -35,292 +35,6 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on RequestSmsCodeRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *RequestSmsCodeRequest) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on RequestSmsCodeRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// RequestSmsCodeRequestMultiError, or nil if none found.
-func (m *RequestSmsCodeRequest) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *RequestSmsCodeRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if len(m.GetPhoneNumber()) > 24 {
-		err := RequestSmsCodeRequestValidationError{
-			field:  "PhoneNumber",
-			reason: "value length must be at most 24 bytes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_RequestSmsCodeRequest_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
-		err := RequestSmsCodeRequestValidationError{
-			field:  "PhoneNumber",
-			reason: "value does not match regex pattern \"^(\\\\+7|8|7)[\\\\s\\\\-]?\\\\(?[489][0-9]{2}\\\\)?[\\\\s\\\\-]?[0-9]{3}[\\\\s\\\\-]?[0-9]{2}[\\\\s\\\\-]?[0-9]{2}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if len(errors) > 0 {
-		return RequestSmsCodeRequestMultiError(errors)
-	}
-
-	return nil
-}
-
-// RequestSmsCodeRequestMultiError is an error wrapping multiple validation
-// errors returned by RequestSmsCodeRequest.ValidateAll() if the designated
-// constraints aren't met.
-type RequestSmsCodeRequestMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m RequestSmsCodeRequestMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m RequestSmsCodeRequestMultiError) AllErrors() []error { return m }
-
-// RequestSmsCodeRequestValidationError is the validation error returned by
-// RequestSmsCodeRequest.Validate if the designated constraints aren't met.
-type RequestSmsCodeRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e RequestSmsCodeRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e RequestSmsCodeRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e RequestSmsCodeRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e RequestSmsCodeRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e RequestSmsCodeRequestValidationError) ErrorName() string {
-	return "RequestSmsCodeRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e RequestSmsCodeRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sRequestSmsCodeRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = RequestSmsCodeRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = RequestSmsCodeRequestValidationError{}
-
-var _RequestSmsCodeRequest_PhoneNumber_Pattern = regexp.MustCompile("^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$")
-
-// Validate checks the field values on RequestSmsCodeResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *RequestSmsCodeResponse) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on RequestSmsCodeResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// RequestSmsCodeResponseMultiError, or nil if none found.
-func (m *RequestSmsCodeResponse) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *RequestSmsCodeResponse) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	if all {
-		switch v := interface{}(m.GetCooldown()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, RequestSmsCodeResponseValidationError{
-					field:  "Cooldown",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, RequestSmsCodeResponseValidationError{
-					field:  "Cooldown",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetCooldown()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RequestSmsCodeResponseValidationError{
-				field:  "Cooldown",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if all {
-		switch v := interface{}(m.GetExpiresAt()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, RequestSmsCodeResponseValidationError{
-					field:  "ExpiresAt",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, RequestSmsCodeResponseValidationError{
-					field:  "ExpiresAt",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetExpiresAt()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return RequestSmsCodeResponseValidationError{
-				field:  "ExpiresAt",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if len(errors) > 0 {
-		return RequestSmsCodeResponseMultiError(errors)
-	}
-
-	return nil
-}
-
-// RequestSmsCodeResponseMultiError is an error wrapping multiple validation
-// errors returned by RequestSmsCodeResponse.ValidateAll() if the designated
-// constraints aren't met.
-type RequestSmsCodeResponseMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m RequestSmsCodeResponseMultiError) Error() string {
-	msgs := make([]string, 0, len(m))
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m RequestSmsCodeResponseMultiError) AllErrors() []error { return m }
-
-// RequestSmsCodeResponseValidationError is the validation error returned by
-// RequestSmsCodeResponse.Validate if the designated constraints aren't met.
-type RequestSmsCodeResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e RequestSmsCodeResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e RequestSmsCodeResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e RequestSmsCodeResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e RequestSmsCodeResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e RequestSmsCodeResponseValidationError) ErrorName() string {
-	return "RequestSmsCodeResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e RequestSmsCodeResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sRequestSmsCodeResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = RequestSmsCodeResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = RequestSmsCodeResponseValidationError{}
-
 // Validate checks the field values on VerifyCodeRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
@@ -496,35 +210,6 @@ func (m *VerifyCodeResponse) validate(all bool) error {
 	// no validation rules for AccessToken
 
 	// no validation rules for RefreshToken
-
-	if all {
-		switch v := interface{}(m.GetUser()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, VerifyCodeResponseValidationError{
-					field:  "User",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, VerifyCodeResponseValidationError{
-					field:  "User",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return VerifyCodeResponseValidationError{
-				field:  "User",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
 
 	if len(errors) > 0 {
 		return VerifyCodeResponseMultiError(errors)
@@ -909,48 +594,34 @@ func (m *LoginRequest) validate(all bool) error {
 
 	var errors []error
 
-	if len(m.GetPhoneNumber()) > 24 {
-		err := LoginRequestValidationError{
-			field:  "PhoneNumber",
-			reason: "value length must be at most 24 bytes",
+	if m.PhoneNumber != nil {
+
+		if len(m.GetPhoneNumber()) > 24 {
+			err := LoginRequestValidationError{
+				field:  "PhoneNumber",
+				reason: "value length must be at most 24 bytes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
 		}
-		if !all {
-			return err
+
+		if !_LoginRequest_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
+			err := LoginRequestValidationError{
+				field:  "PhoneNumber",
+				reason: "value does not match regex pattern \"^(\\\\+7|8|7)[\\\\s\\\\-]?\\\\(?[489][0-9]{2}\\\\)?[\\\\s\\\\-]?[0-9]{3}[\\\\s\\\\-]?[0-9]{2}[\\\\s\\\\-]?[0-9]{2}$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
 		}
-		errors = append(errors, err)
+
 	}
 
-	if !_LoginRequest_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
-		err := LoginRequestValidationError{
-			field:  "PhoneNumber",
-			reason: "value does not match regex pattern \"^(\\\\+7|8|7)[\\\\s\\\\-]?\\\\(?[489][0-9]{2}\\\\)?[\\\\s\\\\-]?[0-9]{3}[\\\\s\\\\-]?[0-9]{2}[\\\\s\\\\-]?[0-9]{2}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if utf8.RuneCountInString(m.GetCode()) < 6 {
-		err := LoginRequestValidationError{
-			field:  "Code",
-			reason: "value length must be at least 6 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_LoginRequest_Code_Pattern.MatchString(m.GetCode()) {
-		err := LoginRequestValidationError{
-			field:  "Code",
-			reason: "value does not match regex pattern \"^[0-9]{6}$\"",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
+	if m.Username != nil {
+		// no validation rules for Username
 	}
 
 	if len(errors) > 0 {
@@ -1031,8 +702,6 @@ var _ interface {
 } = LoginRequestValidationError{}
 
 var _LoginRequest_PhoneNumber_Pattern = regexp.MustCompile("^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$")
-
-var _LoginRequest_Code_Pattern = regexp.MustCompile("^[0-9]{6}$")
 
 // Validate checks the field values on LoginResponse with the rules defined in
 // the proto definition for this message. If any rules are violated, the first

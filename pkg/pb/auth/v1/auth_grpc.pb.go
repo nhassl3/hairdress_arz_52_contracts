@@ -22,7 +22,6 @@ type AuthServiceClient interface {
 	Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*LogoutResponse, error)
 	RefreshToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error)
 	GetMe(ctx context.Context, in *GetMeRequest, opts ...grpc.CallOption) (*GetMeResponse, error)
-	RequestSmsCode(ctx context.Context, in *RequestSmsCodeRequest, opts ...grpc.CallOption) (*RequestSmsCodeResponse, error)
 	VerifyCode(ctx context.Context, in *VerifyCodeRequest, opts ...grpc.CallOption) (*VerifyCodeResponse, error)
 }
 
@@ -79,15 +78,6 @@ func (c *authServiceClient) GetMe(ctx context.Context, in *GetMeRequest, opts ..
 	return out, nil
 }
 
-func (c *authServiceClient) RequestSmsCode(ctx context.Context, in *RequestSmsCodeRequest, opts ...grpc.CallOption) (*RequestSmsCodeResponse, error) {
-	out := new(RequestSmsCodeResponse)
-	err := c.cc.Invoke(ctx, "/auth.v1.AuthService/RequestSmsCode", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *authServiceClient) VerifyCode(ctx context.Context, in *VerifyCodeRequest, opts ...grpc.CallOption) (*VerifyCodeResponse, error) {
 	out := new(VerifyCodeResponse)
 	err := c.cc.Invoke(ctx, "/auth.v1.AuthService/VerifyCode", in, out, opts...)
@@ -106,7 +96,6 @@ type AuthServiceServer interface {
 	Logout(context.Context, *LogoutRequest) (*LogoutResponse, error)
 	RefreshToken(context.Context, *RefreshTokenRequest) (*RefreshTokenResponse, error)
 	GetMe(context.Context, *GetMeRequest) (*GetMeResponse, error)
-	RequestSmsCode(context.Context, *RequestSmsCodeRequest) (*RequestSmsCodeResponse, error)
 	VerifyCode(context.Context, *VerifyCodeRequest) (*VerifyCodeResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
@@ -129,9 +118,6 @@ func (UnimplementedAuthServiceServer) RefreshToken(context.Context, *RefreshToke
 }
 func (UnimplementedAuthServiceServer) GetMe(context.Context, *GetMeRequest) (*GetMeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMe not implemented")
-}
-func (UnimplementedAuthServiceServer) RequestSmsCode(context.Context, *RequestSmsCodeRequest) (*RequestSmsCodeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RequestSmsCode not implemented")
 }
 func (UnimplementedAuthServiceServer) VerifyCode(context.Context, *VerifyCodeRequest) (*VerifyCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyCode not implemented")
@@ -239,24 +225,6 @@ func _AuthService_GetMe_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthService_RequestSmsCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RequestSmsCodeRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServiceServer).RequestSmsCode(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/auth.v1.AuthService/RequestSmsCode",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServiceServer).RequestSmsCode(ctx, req.(*RequestSmsCodeRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _AuthService_VerifyCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(VerifyCodeRequest)
 	if err := dec(in); err != nil {
@@ -298,10 +266,6 @@ var _AuthService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetMe",
 			Handler:    _AuthService_GetMe_Handler,
-		},
-		{
-			MethodName: "RequestSmsCode",
-			Handler:    _AuthService_RequestSmsCode_Handler,
 		},
 		{
 			MethodName: "VerifyCode",
