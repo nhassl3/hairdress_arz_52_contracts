@@ -35,32 +35,32 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on VerifyCodeRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *VerifyCodeRequest) Validate() error {
+// Validate checks the field values on RequestEmailVerifyRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *RequestEmailVerifyRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on VerifyCodeRequest with the rules
-// defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on RequestEmailVerifyRequest with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// VerifyCodeRequestMultiError, or nil if none found.
-func (m *VerifyCodeRequest) ValidateAll() error {
+// RequestEmailVerifyRequestMultiError, or nil if none found.
+func (m *RequestEmailVerifyRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *VerifyCodeRequest) validate(all bool) error {
+func (m *RequestEmailVerifyRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	if len(m.GetPhoneNumber()) > 24 {
-		err := VerifyCodeRequestValidationError{
-			field:  "PhoneNumber",
-			reason: "value length must be at most 24 bytes",
+	if utf8.RuneCountInString(m.GetEmail()) > 320 {
+		err := RequestEmailVerifyRequestValidationError{
+			field:  "Email",
+			reason: "value length must be at most 320 runes",
 		}
 		if !all {
 			return err
@@ -68,10 +68,11 @@ func (m *VerifyCodeRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if !_VerifyCodeRequest_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
-		err := VerifyCodeRequestValidationError{
-			field:  "PhoneNumber",
-			reason: "value does not match regex pattern \"^(\\\\+7|8|7)[\\\\s\\\\-]?\\\\(?[489][0-9]{2}\\\\)?[\\\\s\\\\-]?[0-9]{3}[\\\\s\\\\-]?[0-9]{2}[\\\\s\\\\-]?[0-9]{2}$\"",
+	if err := m._validateEmail(m.GetEmail()); err != nil {
+		err = RequestEmailVerifyRequestValidationError{
+			field:  "Email",
+			reason: "value must be a valid email address",
+			cause:  err,
 		}
 		if !all {
 			return err
@@ -79,21 +80,10 @@ func (m *VerifyCodeRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetCode()) < 6 {
-		err := VerifyCodeRequestValidationError{
-			field:  "Code",
-			reason: "value length must be at least 6 runes",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
-	if !_VerifyCodeRequest_Code_Pattern.MatchString(m.GetCode()) {
-		err := VerifyCodeRequestValidationError{
-			field:  "Code",
-			reason: "value does not match regex pattern \"^[0-9]{6}$\"",
+	if !_RequestEmailVerifyRequest_Email_Pattern.MatchString(m.GetEmail()) {
+		err := RequestEmailVerifyRequestValidationError{
+			field:  "Email",
+			reason: "value does not match regex pattern \"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$\"",
 		}
 		if !all {
 			return err
@@ -102,19 +92,69 @@ func (m *VerifyCodeRequest) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return VerifyCodeRequestMultiError(errors)
+		return RequestEmailVerifyRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// VerifyCodeRequestMultiError is an error wrapping multiple validation errors
-// returned by VerifyCodeRequest.ValidateAll() if the designated constraints
-// aren't met.
-type VerifyCodeRequestMultiError []error
+func (m *RequestEmailVerifyRequest) _validateHostname(host string) error {
+	s := strings.ToLower(strings.TrimSuffix(host, "."))
+
+	if len(host) > 253 {
+		return errors.New("hostname cannot exceed 253 characters")
+	}
+
+	for _, part := range strings.Split(s, ".") {
+		if l := len(part); l == 0 || l > 63 {
+			return errors.New("hostname part must be non-empty and cannot exceed 63 characters")
+		}
+
+		if part[0] == '-' {
+			return errors.New("hostname parts cannot begin with hyphens")
+		}
+
+		if part[len(part)-1] == '-' {
+			return errors.New("hostname parts cannot end with hyphens")
+		}
+
+		for _, r := range part {
+			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
+				return fmt.Errorf("hostname parts can only contain alphanumeric characters or hyphens, got %q", string(r))
+			}
+		}
+	}
+
+	return nil
+}
+
+func (m *RequestEmailVerifyRequest) _validateEmail(addr string) error {
+	a, err := mail.ParseAddress(addr)
+	if err != nil {
+		return err
+	}
+	addr = a.Address
+
+	if len(addr) > 254 {
+		return errors.New("email addresses cannot exceed 254 characters")
+	}
+
+	parts := strings.SplitN(addr, "@", 2)
+
+	if len(parts[0]) > 64 {
+		return errors.New("email address local phrase cannot exceed 64 characters")
+	}
+
+	return m._validateHostname(parts[1])
+}
+
+// RequestEmailVerifyRequestMultiError is an error wrapping multiple validation
+// errors returned by RequestEmailVerifyRequest.ValidateAll() if the
+// designated constraints aren't met.
+type RequestEmailVerifyRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m VerifyCodeRequestMultiError) Error() string {
+func (m RequestEmailVerifyRequestMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -123,11 +163,11 @@ func (m VerifyCodeRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m VerifyCodeRequestMultiError) AllErrors() []error { return m }
+func (m RequestEmailVerifyRequestMultiError) AllErrors() []error { return m }
 
-// VerifyCodeRequestValidationError is the validation error returned by
-// VerifyCodeRequest.Validate if the designated constraints aren't met.
-type VerifyCodeRequestValidationError struct {
+// RequestEmailVerifyRequestValidationError is the validation error returned by
+// RequestEmailVerifyRequest.Validate if the designated constraints aren't met.
+type RequestEmailVerifyRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -135,24 +175,24 @@ type VerifyCodeRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e VerifyCodeRequestValidationError) Field() string { return e.field }
+func (e RequestEmailVerifyRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e VerifyCodeRequestValidationError) Reason() string { return e.reason }
+func (e RequestEmailVerifyRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e VerifyCodeRequestValidationError) Cause() error { return e.cause }
+func (e RequestEmailVerifyRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e VerifyCodeRequestValidationError) Key() bool { return e.key }
+func (e RequestEmailVerifyRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e VerifyCodeRequestValidationError) ErrorName() string {
-	return "VerifyCodeRequestValidationError"
+func (e RequestEmailVerifyRequestValidationError) ErrorName() string {
+	return "RequestEmailVerifyRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e VerifyCodeRequestValidationError) Error() string {
+func (e RequestEmailVerifyRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -164,14 +204,14 @@ func (e VerifyCodeRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sVerifyCodeRequest.%s: %s%s",
+		"invalid %sRequestEmailVerifyRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = VerifyCodeRequestValidationError{}
+var _ error = RequestEmailVerifyRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -179,28 +219,522 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = VerifyCodeRequestValidationError{}
+} = RequestEmailVerifyRequestValidationError{}
 
-var _VerifyCodeRequest_PhoneNumber_Pattern = regexp.MustCompile("^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$")
+var _RequestEmailVerifyRequest_Email_Pattern = regexp.MustCompile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
 
-var _VerifyCodeRequest_Code_Pattern = regexp.MustCompile("^[0-9]{6}$")
-
-// Validate checks the field values on VerifyCodeResponse with the rules
-// defined in the proto definition for this message. If any rules are
+// Validate checks the field values on RequestEmailVerifyResponse with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
-func (m *VerifyCodeResponse) Validate() error {
+func (m *RequestEmailVerifyResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on VerifyCodeResponse with the rules
-// defined in the proto definition for this message. If any rules are
+// ValidateAll checks the field values on RequestEmailVerifyResponse with the
+// rules defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// VerifyCodeResponseMultiError, or nil if none found.
-func (m *VerifyCodeResponse) ValidateAll() error {
+// RequestEmailVerifyResponseMultiError, or nil if none found.
+func (m *RequestEmailVerifyResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *VerifyCodeResponse) validate(all bool) error {
+func (m *RequestEmailVerifyResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for OperationId
+
+	if len(errors) > 0 {
+		return RequestEmailVerifyResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// RequestEmailVerifyResponseMultiError is an error wrapping multiple
+// validation errors returned by RequestEmailVerifyResponse.ValidateAll() if
+// the designated constraints aren't met.
+type RequestEmailVerifyResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m RequestEmailVerifyResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m RequestEmailVerifyResponseMultiError) AllErrors() []error { return m }
+
+// RequestEmailVerifyResponseValidationError is the validation error returned
+// by RequestEmailVerifyResponse.Validate if the designated constraints aren't met.
+type RequestEmailVerifyResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e RequestEmailVerifyResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e RequestEmailVerifyResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e RequestEmailVerifyResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e RequestEmailVerifyResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e RequestEmailVerifyResponseValidationError) ErrorName() string {
+	return "RequestEmailVerifyResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e RequestEmailVerifyResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sRequestEmailVerifyResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = RequestEmailVerifyResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = RequestEmailVerifyResponseValidationError{}
+
+// Validate checks the field values on ApproveCodeRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ApproveCodeRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApproveCodeRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ApproveCodeRequestMultiError, or nil if none found.
+func (m *ApproveCodeRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApproveCodeRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if utf8.RuneCountInString(m.GetCode()) < 6 {
+		err := ApproveCodeRequestValidationError{
+			field:  "Code",
+			reason: "value length must be at least 6 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if !_ApproveCodeRequest_Code_Pattern.MatchString(m.GetCode()) {
+		err := ApproveCodeRequestValidationError{
+			field:  "Code",
+			reason: "value does not match regex pattern \"^[0-9]{6}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for OperationId
+
+	if m.PhoneNumber != nil {
+
+		if len(m.GetPhoneNumber()) > 24 {
+			err := ApproveCodeRequestValidationError{
+				field:  "PhoneNumber",
+				reason: "value length must be at most 24 bytes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_ApproveCodeRequest_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
+			err := ApproveCodeRequestValidationError{
+				field:  "PhoneNumber",
+				reason: "value does not match regex pattern \"^(\\\\+7|8|7)[\\\\s\\\\-]?\\\\(?[489][0-9]{2}\\\\)?[\\\\s\\\\-]?[0-9]{3}[\\\\s\\\\-]?[0-9]{2}[\\\\s\\\\-]?[0-9]{2}$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if m.Email != nil {
+
+		if utf8.RuneCountInString(m.GetEmail()) > 320 {
+			err := ApproveCodeRequestValidationError{
+				field:  "Email",
+				reason: "value length must be at most 320 runes",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if !_ApproveCodeRequest_Email_Pattern.MatchString(m.GetEmail()) {
+			err := ApproveCodeRequestValidationError{
+				field:  "Email",
+				reason: "value does not match regex pattern \"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$\"",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ApproveCodeRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ApproveCodeRequestMultiError is an error wrapping multiple validation errors
+// returned by ApproveCodeRequest.ValidateAll() if the designated constraints
+// aren't met.
+type ApproveCodeRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApproveCodeRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApproveCodeRequestMultiError) AllErrors() []error { return m }
+
+// ApproveCodeRequestValidationError is the validation error returned by
+// ApproveCodeRequest.Validate if the designated constraints aren't met.
+type ApproveCodeRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApproveCodeRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApproveCodeRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApproveCodeRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApproveCodeRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApproveCodeRequestValidationError) ErrorName() string {
+	return "ApproveCodeRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ApproveCodeRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApproveCodeRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApproveCodeRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApproveCodeRequestValidationError{}
+
+var _ApproveCodeRequest_PhoneNumber_Pattern = regexp.MustCompile("^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$")
+
+var _ApproveCodeRequest_Email_Pattern = regexp.MustCompile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
+
+var _ApproveCodeRequest_Code_Pattern = regexp.MustCompile("^[0-9]{6}$")
+
+// Validate checks the field values on ApproveCodeResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ApproveCodeResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApproveCodeResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ApproveCodeResponseMultiError, or nil if none found.
+func (m *ApproveCodeResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApproveCodeResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Token
+
+	if len(errors) > 0 {
+		return ApproveCodeResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ApproveCodeResponseMultiError is an error wrapping multiple validation
+// errors returned by ApproveCodeResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ApproveCodeResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApproveCodeResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApproveCodeResponseMultiError) AllErrors() []error { return m }
+
+// ApproveCodeResponseValidationError is the validation error returned by
+// ApproveCodeResponse.Validate if the designated constraints aren't met.
+type ApproveCodeResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApproveCodeResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApproveCodeResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApproveCodeResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApproveCodeResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApproveCodeResponseValidationError) ErrorName() string {
+	return "ApproveCodeResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ApproveCodeResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApproveCodeResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApproveCodeResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApproveCodeResponseValidationError{}
+
+// Validate checks the field values on VerifyEmailRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *VerifyEmailRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on VerifyEmailRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// VerifyEmailRequestMultiError, or nil if none found.
+func (m *VerifyEmailRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *VerifyEmailRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for VerifyToken
+
+	if len(errors) > 0 {
+		return VerifyEmailRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// VerifyEmailRequestMultiError is an error wrapping multiple validation errors
+// returned by VerifyEmailRequest.ValidateAll() if the designated constraints
+// aren't met.
+type VerifyEmailRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m VerifyEmailRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m VerifyEmailRequestMultiError) AllErrors() []error { return m }
+
+// VerifyEmailRequestValidationError is the validation error returned by
+// VerifyEmailRequest.Validate if the designated constraints aren't met.
+type VerifyEmailRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e VerifyEmailRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e VerifyEmailRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e VerifyEmailRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e VerifyEmailRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e VerifyEmailRequestValidationError) ErrorName() string {
+	return "VerifyEmailRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e VerifyEmailRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sVerifyEmailRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = VerifyEmailRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = VerifyEmailRequestValidationError{}
+
+// Validate checks the field values on VerifyEmailResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *VerifyEmailResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on VerifyEmailResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// VerifyEmailResponseMultiError, or nil if none found.
+func (m *VerifyEmailResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *VerifyEmailResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -211,20 +745,22 @@ func (m *VerifyCodeResponse) validate(all bool) error {
 
 	// no validation rules for RefreshToken
 
+	// no validation rules for Success
+
 	if len(errors) > 0 {
-		return VerifyCodeResponseMultiError(errors)
+		return VerifyEmailResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// VerifyCodeResponseMultiError is an error wrapping multiple validation errors
-// returned by VerifyCodeResponse.ValidateAll() if the designated constraints
-// aren't met.
-type VerifyCodeResponseMultiError []error
+// VerifyEmailResponseMultiError is an error wrapping multiple validation
+// errors returned by VerifyEmailResponse.ValidateAll() if the designated
+// constraints aren't met.
+type VerifyEmailResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m VerifyCodeResponseMultiError) Error() string {
+func (m VerifyEmailResponseMultiError) Error() string {
 	msgs := make([]string, 0, len(m))
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -233,11 +769,11 @@ func (m VerifyCodeResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m VerifyCodeResponseMultiError) AllErrors() []error { return m }
+func (m VerifyEmailResponseMultiError) AllErrors() []error { return m }
 
-// VerifyCodeResponseValidationError is the validation error returned by
-// VerifyCodeResponse.Validate if the designated constraints aren't met.
-type VerifyCodeResponseValidationError struct {
+// VerifyEmailResponseValidationError is the validation error returned by
+// VerifyEmailResponse.Validate if the designated constraints aren't met.
+type VerifyEmailResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -245,24 +781,24 @@ type VerifyCodeResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e VerifyCodeResponseValidationError) Field() string { return e.field }
+func (e VerifyEmailResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e VerifyCodeResponseValidationError) Reason() string { return e.reason }
+func (e VerifyEmailResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e VerifyCodeResponseValidationError) Cause() error { return e.cause }
+func (e VerifyEmailResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e VerifyCodeResponseValidationError) Key() bool { return e.key }
+func (e VerifyEmailResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e VerifyCodeResponseValidationError) ErrorName() string {
-	return "VerifyCodeResponseValidationError"
+func (e VerifyEmailResponseValidationError) ErrorName() string {
+	return "VerifyEmailResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e VerifyCodeResponseValidationError) Error() string {
+func (e VerifyEmailResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -274,14 +810,14 @@ func (e VerifyCodeResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sVerifyCodeResponse.%s: %s%s",
+		"invalid %sVerifyEmailResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = VerifyCodeResponseValidationError{}
+var _ error = VerifyEmailResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -289,7 +825,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = VerifyCodeResponseValidationError{}
+} = VerifyEmailResponseValidationError{}
 
 // Validate checks the field values on RegisterRequest with the rules defined
 // in the proto definition for this message. If any rules are violated, the
