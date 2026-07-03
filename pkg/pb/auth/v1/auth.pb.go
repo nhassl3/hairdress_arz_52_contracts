@@ -27,6 +27,7 @@ const (
 type RequestEmailVerifyRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	OperationId   *string                `protobuf:"bytes,2,opt,name=operation_id,json=operationId,proto3,oneof" json:"operation_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -64,6 +65,13 @@ func (*RequestEmailVerifyRequest) Descriptor() ([]byte, []int) {
 func (x *RequestEmailVerifyRequest) GetEmail() string {
 	if x != nil {
 		return x.Email
+	}
+	return ""
+}
+
+func (x *RequestEmailVerifyRequest) GetOperationId() string {
+	if x != nil && x.OperationId != nil {
+		return *x.OperationId
 	}
 	return ""
 }
@@ -907,9 +915,11 @@ var File_auth_v1_auth_proto protoreflect.FileDescriptor
 
 const file_auth_v1_auth_proto_rawDesc = "" +
 	"\n" +
-	"\x12auth/v1/auth.proto\x12\aauth.v1\x1a'googleapis/google/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17validate/validate.proto\"o\n" +
+	"\x12auth/v1/auth.proto\x12\aauth.v1\x1a'googleapis/google/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17validate/validate.proto\"\xa8\x01\n" +
 	"\x19RequestEmailVerifyRequest\x12R\n" +
-	"\x05email\x18\x01 \x01(\tB<\xfaB9r7\x18\xc0\x0220^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$`\x01R\x05email\"?\n" +
+	"\x05email\x18\x01 \x01(\tB<\xfaB9r7\x18\xc0\x0220^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$`\x01R\x05email\x12&\n" +
+	"\foperation_id\x18\x02 \x01(\tH\x00R\voperationId\x88\x01\x01B\x0f\n" +
+	"\r_operation_id\"?\n" +
 	"\x1aRequestEmailVerifyResponse\x12!\n" +
 	"\foperation_id\x18\x01 \x01(\tR\voperationId\"\xd8\x02\n" +
 	"\x12ApproveCodeRequest\x12\x83\x01\n" +
@@ -1042,6 +1052,7 @@ func file_auth_v1_auth_proto_init() {
 	if File_auth_v1_auth_proto != nil {
 		return
 	}
+	file_auth_v1_auth_proto_msgTypes[0].OneofWrappers = []any{}
 	file_auth_v1_auth_proto_msgTypes[2].OneofWrappers = []any{}
 	file_auth_v1_auth_proto_msgTypes[8].OneofWrappers = []any{}
 	type x struct{}

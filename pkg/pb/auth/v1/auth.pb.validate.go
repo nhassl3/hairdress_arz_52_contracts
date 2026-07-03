@@ -91,6 +91,10 @@ func (m *RequestEmailVerifyRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if m.OperationId != nil {
+		// no validation rules for OperationId
+	}
+
 	if len(errors) > 0 {
 		return RequestEmailVerifyRequestMultiError(errors)
 	}

@@ -75,6 +75,7 @@ message RequestEmailVerifyRequest {
       max_len: 320,
     }
   ];
+  optional string operation_id = 2;
 }
 
 message RequestEmailVerifyResponse {
