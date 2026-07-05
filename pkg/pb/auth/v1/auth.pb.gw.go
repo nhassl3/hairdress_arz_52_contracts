@@ -377,7 +377,7 @@ func RegisterAuthServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/auth.v1.AuthService/ApproveCode", runtime.WithHTTPPathPattern("/api/v1/auth/sms/verify"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/auth.v1.AuthService/ApproveCode", runtime.WithHTTPPathPattern("/api/v1/auth/approve-code"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -557,7 +557,7 @@ func RegisterAuthServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/auth.v1.AuthService/ApproveCode", runtime.WithHTTPPathPattern("/api/v1/auth/sms/verify"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/auth.v1.AuthService/ApproveCode", runtime.WithHTTPPathPattern("/api/v1/auth/approve-code"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -597,7 +597,7 @@ var (
 	pattern_AuthService_RefreshToken_0       = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "auth", "refresh"}, ""))
 	pattern_AuthService_GetMe_0              = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "auth", "me"}, ""))
 	pattern_AuthService_RequestEmailVerify_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "auth", "request-email-verify"}, ""))
-	pattern_AuthService_ApproveCode_0        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "auth", "sms", "verify"}, ""))
+	pattern_AuthService_ApproveCode_0        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "auth", "approve-code"}, ""))
 	pattern_AuthService_VerifyEmail_0        = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "auth", "email", "verify"}, ""))
 )
 
