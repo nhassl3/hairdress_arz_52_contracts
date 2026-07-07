@@ -357,10 +357,10 @@ func (m *ApproveCodeRequest) validate(all bool) error {
 
 	var errors []error
 
-	if utf8.RuneCountInString(m.GetCode()) < 6 {
+	if utf8.RuneCountInString(m.GetCode()) > 6 {
 		err := ApproveCodeRequestValidationError{
 			field:  "Code",
-			reason: "value length must be at least 6 runes",
+			reason: "value length must be at most 6 runes",
 		}
 		if !all {
 			return err
@@ -381,7 +381,18 @@ func (m *ApproveCodeRequest) validate(all bool) error {
 
 	// no validation rules for OperationId
 
-	if m.PhoneNumber != nil {
+	switch v := m.Method.(type) {
+	case *ApproveCodeRequest_PhoneNumber:
+		if v == nil {
+			err := ApproveCodeRequestValidationError{
+				field:  "Method",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if m.GetPhoneNumber() != "" {
 
@@ -409,9 +420,17 @@ func (m *ApproveCodeRequest) validate(all bool) error {
 
 		}
 
-	}
-
-	if m.Email != nil {
+	case *ApproveCodeRequest_Email:
+		if v == nil {
+			err := ApproveCodeRequestValidationError{
+				field:  "Method",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if m.GetEmail() != "" {
 
@@ -440,6 +459,8 @@ func (m *ApproveCodeRequest) validate(all bool) error {
 
 		}
 
+	default:
+		_ = v // ensures v is used
 	}
 
 	if len(errors) > 0 {
@@ -1508,7 +1529,18 @@ func (m *LoginRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.PhoneNumber != nil {
+	switch v := m.Method.(type) {
+	case *LoginRequest_PhoneNumber:
+		if v == nil {
+			err := LoginRequestValidationError{
+				field:  "Method",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if m.GetPhoneNumber() != "" {
 
@@ -1536,17 +1568,33 @@ func (m *LoginRequest) validate(all bool) error {
 
 		}
 
-	}
-
-	if m.Username != nil {
+	case *LoginRequest_Username:
+		if v == nil {
+			err := LoginRequestValidationError{
+				field:  "Method",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if m.GetUsername() != "" {
 
 		}
 
-	}
-
-	if m.Email != nil {
+	case *LoginRequest_Email:
+		if v == nil {
+			err := LoginRequestValidationError{
+				field:  "Method",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 		if m.GetEmail() != "" {
 
@@ -1575,6 +1623,8 @@ func (m *LoginRequest) validate(all bool) error {
 
 		}
 
+	default:
+		_ = v // ensures v is used
 	}
 
 	if len(errors) > 0 {

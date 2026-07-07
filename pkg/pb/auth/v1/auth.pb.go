@@ -121,11 +121,14 @@ func (x *RequestEmailVerifyResponse) GetOperationId() string {
 }
 
 type ApproveCodeRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	PhoneNumber   *string                `protobuf:"bytes,1,opt,name=phone_number,json=phoneNumber,proto3,oneof" json:"phone_number,omitempty"`
-	Email         *string                `protobuf:"bytes,3,opt,name=email,proto3,oneof" json:"email,omitempty"`
-	Code          string                 `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
-	OperationId   string                 `protobuf:"bytes,4,opt,name=operation_id,json=operationId,proto3" json:"operation_id,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Types that are valid to be assigned to Method:
+	//
+	//	*ApproveCodeRequest_PhoneNumber
+	//	*ApproveCodeRequest_Email
+	Method        isApproveCodeRequest_Method `protobuf_oneof:"method"`
+	Code          string                      `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
+	OperationId   string                      `protobuf:"bytes,4,opt,name=operation_id,json=operationId,proto3" json:"operation_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -160,16 +163,27 @@ func (*ApproveCodeRequest) Descriptor() ([]byte, []int) {
 	return file_auth_v1_auth_proto_rawDescGZIP(), []int{2}
 }
 
+func (x *ApproveCodeRequest) GetMethod() isApproveCodeRequest_Method {
+	if x != nil {
+		return x.Method
+	}
+	return nil
+}
+
 func (x *ApproveCodeRequest) GetPhoneNumber() string {
-	if x != nil && x.PhoneNumber != nil {
-		return *x.PhoneNumber
+	if x != nil {
+		if x, ok := x.Method.(*ApproveCodeRequest_PhoneNumber); ok {
+			return x.PhoneNumber
+		}
 	}
 	return ""
 }
 
 func (x *ApproveCodeRequest) GetEmail() string {
-	if x != nil && x.Email != nil {
-		return *x.Email
+	if x != nil {
+		if x, ok := x.Method.(*ApproveCodeRequest_Email); ok {
+			return x.Email
+		}
 	}
 	return ""
 }
@@ -187,6 +201,22 @@ func (x *ApproveCodeRequest) GetOperationId() string {
 	}
 	return ""
 }
+
+type isApproveCodeRequest_Method interface {
+	isApproveCodeRequest_Method()
+}
+
+type ApproveCodeRequest_PhoneNumber struct {
+	PhoneNumber string `protobuf:"bytes,1,opt,name=phone_number,json=phoneNumber,proto3,oneof"`
+}
+
+type ApproveCodeRequest_Email struct {
+	Email string `protobuf:"bytes,3,opt,name=email,proto3,oneof"`
+}
+
+func (*ApproveCodeRequest_PhoneNumber) isApproveCodeRequest_Method() {}
+
+func (*ApproveCodeRequest_Email) isApproveCodeRequest_Method() {}
 
 type ApproveCodeResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -561,10 +591,13 @@ func (x *AuthResponse) GetOperationId() string {
 }
 
 type LoginRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	PhoneNumber   *string                `protobuf:"bytes,1,opt,name=phone_number,json=phoneNumber,proto3,oneof" json:"phone_number,omitempty"`
-	Username      *string                `protobuf:"bytes,2,opt,name=username,proto3,oneof" json:"username,omitempty"`
-	Email         *string                `protobuf:"bytes,3,opt,name=email,proto3,oneof" json:"email,omitempty"`
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Types that are valid to be assigned to Method:
+	//
+	//	*LoginRequest_PhoneNumber
+	//	*LoginRequest_Username
+	//	*LoginRequest_Email
+	Method        isLoginRequest_Method `protobuf_oneof:"method"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -599,26 +632,61 @@ func (*LoginRequest) Descriptor() ([]byte, []int) {
 	return file_auth_v1_auth_proto_rawDescGZIP(), []int{10}
 }
 
+func (x *LoginRequest) GetMethod() isLoginRequest_Method {
+	if x != nil {
+		return x.Method
+	}
+	return nil
+}
+
 func (x *LoginRequest) GetPhoneNumber() string {
-	if x != nil && x.PhoneNumber != nil {
-		return *x.PhoneNumber
+	if x != nil {
+		if x, ok := x.Method.(*LoginRequest_PhoneNumber); ok {
+			return x.PhoneNumber
+		}
 	}
 	return ""
 }
 
 func (x *LoginRequest) GetUsername() string {
-	if x != nil && x.Username != nil {
-		return *x.Username
+	if x != nil {
+		if x, ok := x.Method.(*LoginRequest_Username); ok {
+			return x.Username
+		}
 	}
 	return ""
 }
 
 func (x *LoginRequest) GetEmail() string {
-	if x != nil && x.Email != nil {
-		return *x.Email
+	if x != nil {
+		if x, ok := x.Method.(*LoginRequest_Email); ok {
+			return x.Email
+		}
 	}
 	return ""
 }
+
+type isLoginRequest_Method interface {
+	isLoginRequest_Method()
+}
+
+type LoginRequest_PhoneNumber struct {
+	PhoneNumber string `protobuf:"bytes,1,opt,name=phone_number,json=phoneNumber,proto3,oneof"`
+}
+
+type LoginRequest_Username struct {
+	Username string `protobuf:"bytes,2,opt,name=username,proto3,oneof"`
+}
+
+type LoginRequest_Email struct {
+	Email string `protobuf:"bytes,3,opt,name=email,proto3,oneof"`
+}
+
+func (*LoginRequest_PhoneNumber) isLoginRequest_Method() {}
+
+func (*LoginRequest_Username) isLoginRequest_Method() {}
+
+func (*LoginRequest_Email) isLoginRequest_Method() {}
 
 type LogoutRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -978,16 +1046,15 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\foperation_id\x18\x02 \x01(\tB\b\xfaB\x05r\x03\xd0\x01\x01H\x00R\voperationId\x88\x01\x01B\x0f\n" +
 	"\r_operation_id\"?\n" +
 	"\x1aRequestEmailVerifyResponse\x12!\n" +
-	"\foperation_id\x18\x01 \x01(\tR\voperationId\"\xae\x02\n" +
-	"\x12ApproveCodeRequest\x12\x86\x01\n" +
-	"\fphone_number\x18\x01 \x01(\tB^\xfaB[rY(\x182R^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$\xd0\x01\x01H\x00R\vphoneNumber\x88\x01\x01\x12(\n" +
+	"\foperation_id\x18\x01 \x01(\tR\voperationId\"\x97\x02\n" +
+	"\x12ApproveCodeRequest\x12\x83\x01\n" +
+	"\fphone_number\x18\x01 \x01(\tB^\xfaB[rY(\x182R^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$\xd0\x01\x01H\x00R\vphoneNumber\x12%\n" +
 	"\x05email\x18\x03 \x01(\tB\r\xfaB\n" +
-	"r\b\x18\xc0\x02\xd0\x01\x01`\x01H\x01R\x05email\x88\x01\x01\x12'\n" +
-	"\x04code\x18\x02 \x01(\tB\x13\xfaB\x10r\x0e\x10\x062\n" +
+	"r\b\x18\xc0\x02\xd0\x01\x01`\x01H\x00R\x05email\x12'\n" +
+	"\x04code\x18\x02 \x01(\tB\x13\xfaB\x10r\x0e\x18\x062\n" +
 	"^[0-9]{6}$R\x04code\x12!\n" +
-	"\foperation_id\x18\x04 \x01(\tR\voperationIdB\x0f\n" +
-	"\r_phone_numberB\b\n" +
-	"\x06_email\"+\n" +
+	"\foperation_id\x18\x04 \x01(\tR\voperationIdB\b\n" +
+	"\x06method\"+\n" +
 	"\x13ApproveCodeResponse\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\"7\n" +
 	"\x12LoginVerifyRequest\x12!\n" +
@@ -1011,15 +1078,13 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12%\n" +
 	"\x04user\x18\x03 \x01(\v2\x11.auth.v1.UserInfoR\x04user\x12&\n" +
 	"\foperation_id\x18\x04 \x01(\tH\x00R\voperationId\x88\x01\x01B\x0f\n" +
-	"\r_operation_id\"\x94\x02\n" +
-	"\fLoginRequest\x12\x86\x01\n" +
-	"\fphone_number\x18\x01 \x01(\tB^\xfaB[rY(\x182R^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$\xd0\x01\x01H\x00R\vphoneNumber\x88\x01\x01\x12)\n" +
-	"\busername\x18\x02 \x01(\tB\b\xfaB\x05r\x03\xd0\x01\x01H\x01R\busername\x88\x01\x01\x12(\n" +
+	"\r_operation_id\"\xed\x01\n" +
+	"\fLoginRequest\x12\x83\x01\n" +
+	"\fphone_number\x18\x01 \x01(\tB^\xfaB[rY(\x182R^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$\xd0\x01\x01H\x00R\vphoneNumber\x12&\n" +
+	"\busername\x18\x02 \x01(\tB\b\xfaB\x05r\x03\xd0\x01\x01H\x00R\busername\x12%\n" +
 	"\x05email\x18\x03 \x01(\tB\r\xfaB\n" +
-	"r\b\x18\xc0\x02\xd0\x01\x01`\x01H\x02R\x05email\x88\x01\x01B\x0f\n" +
-	"\r_phone_numberB\v\n" +
-	"\t_usernameB\b\n" +
-	"\x06_email\"\x0f\n" +
+	"r\b\x18\xc0\x02\xd0\x01\x01`\x01H\x00R\x05emailB\b\n" +
+	"\x06method\"\x0f\n" +
 	"\rLogoutRequest\"*\n" +
 	"\x0eLogoutResponse\x12\x18\n" +
 	"\asuccess\x18\x01 \x01(\bR\asuccess\":\n" +
@@ -1124,9 +1189,16 @@ func file_auth_v1_auth_proto_init() {
 		return
 	}
 	file_auth_v1_auth_proto_msgTypes[0].OneofWrappers = []any{}
-	file_auth_v1_auth_proto_msgTypes[2].OneofWrappers = []any{}
+	file_auth_v1_auth_proto_msgTypes[2].OneofWrappers = []any{
+		(*ApproveCodeRequest_PhoneNumber)(nil),
+		(*ApproveCodeRequest_Email)(nil),
+	}
 	file_auth_v1_auth_proto_msgTypes[9].OneofWrappers = []any{}
-	file_auth_v1_auth_proto_msgTypes[10].OneofWrappers = []any{}
+	file_auth_v1_auth_proto_msgTypes[10].OneofWrappers = []any{
+		(*LoginRequest_PhoneNumber)(nil),
+		(*LoginRequest_Username)(nil),
+		(*LoginRequest_Email)(nil),
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
