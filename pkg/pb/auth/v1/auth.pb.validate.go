@@ -379,52 +379,61 @@ func (m *ApproveCodeRequest) validate(all bool) error {
 
 	if m.PhoneNumber != nil {
 
-		if len(m.GetPhoneNumber()) > 24 {
-			err := ApproveCodeRequestValidationError{
-				field:  "PhoneNumber",
-				reason: "value length must be at most 24 bytes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+		if m.GetPhoneNumber() != "" {
 
-		if !_ApproveCodeRequest_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
-			err := ApproveCodeRequestValidationError{
-				field:  "PhoneNumber",
-				reason: "value does not match regex pattern \"^(\\\\+7|8|7)[\\\\s\\\\-]?\\\\(?[489][0-9]{2}\\\\)?[\\\\s\\\\-]?[0-9]{3}[\\\\s\\\\-]?[0-9]{2}[\\\\s\\\\-]?[0-9]{2}$\"",
+			if len(m.GetPhoneNumber()) > 24 {
+				err := ApproveCodeRequestValidationError{
+					field:  "PhoneNumber",
+					reason: "value length must be at most 24 bytes",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
 			}
-			if !all {
-				return err
+
+			if !_ApproveCodeRequest_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
+				err := ApproveCodeRequestValidationError{
+					field:  "PhoneNumber",
+					reason: "value does not match regex pattern \"^(\\\\+7|8|7)[\\\\s\\\\-]?\\\\(?[489][0-9]{2}\\\\)?[\\\\s\\\\-]?[0-9]{3}[\\\\s\\\\-]?[0-9]{2}[\\\\s\\\\-]?[0-9]{2}$\"",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
 			}
-			errors = append(errors, err)
+
 		}
 
 	}
 
 	if m.Email != nil {
 
-		if utf8.RuneCountInString(m.GetEmail()) > 320 {
-			err := ApproveCodeRequestValidationError{
-				field:  "Email",
-				reason: "value length must be at most 320 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+		if m.GetEmail() != "" {
 
-		if !_ApproveCodeRequest_Email_Pattern.MatchString(m.GetEmail()) {
-			err := ApproveCodeRequestValidationError{
-				field:  "Email",
-				reason: "value does not match regex pattern \"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\\\.[a-zA-Z]{2,}$\"",
+			if utf8.RuneCountInString(m.GetEmail()) > 320 {
+				err := ApproveCodeRequestValidationError{
+					field:  "Email",
+					reason: "value length must be at most 320 runes",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
 			}
-			if !all {
-				return err
+
+			if err := m._validateEmail(m.GetEmail()); err != nil {
+				err = ApproveCodeRequestValidationError{
+					field:  "Email",
+					reason: "value must be a valid email address",
+					cause:  err,
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
 			}
-			errors = append(errors, err)
+
 		}
 
 	}
@@ -434,6 +443,56 @@ func (m *ApproveCodeRequest) validate(all bool) error {
 	}
 
 	return nil
+}
+
+func (m *ApproveCodeRequest) _validateHostname(host string) error {
+	s := strings.ToLower(strings.TrimSuffix(host, "."))
+
+	if len(host) > 253 {
+		return errors.New("hostname cannot exceed 253 characters")
+	}
+
+	for _, part := range strings.Split(s, ".") {
+		if l := len(part); l == 0 || l > 63 {
+			return errors.New("hostname part must be non-empty and cannot exceed 63 characters")
+		}
+
+		if part[0] == '-' {
+			return errors.New("hostname parts cannot begin with hyphens")
+		}
+
+		if part[len(part)-1] == '-' {
+			return errors.New("hostname parts cannot end with hyphens")
+		}
+
+		for _, r := range part {
+			if (r < 'a' || r > 'z') && (r < '0' || r > '9') && r != '-' {
+				return fmt.Errorf("hostname parts can only contain alphanumeric characters or hyphens, got %q", string(r))
+			}
+		}
+	}
+
+	return nil
+}
+
+func (m *ApproveCodeRequest) _validateEmail(addr string) error {
+	a, err := mail.ParseAddress(addr)
+	if err != nil {
+		return err
+	}
+	addr = a.Address
+
+	if len(addr) > 254 {
+		return errors.New("email addresses cannot exceed 254 characters")
+	}
+
+	parts := strings.SplitN(addr, "@", 2)
+
+	if len(parts[0]) > 64 {
+		return errors.New("email address local phrase cannot exceed 64 characters")
+	}
+
+	return m._validateHostname(parts[1])
 }
 
 // ApproveCodeRequestMultiError is an error wrapping multiple validation errors
@@ -510,8 +569,6 @@ var _ interface {
 } = ApproveCodeRequestValidationError{}
 
 var _ApproveCodeRequest_PhoneNumber_Pattern = regexp.MustCompile("^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$")
-
-var _ApproveCodeRequest_Email_Pattern = regexp.MustCompile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
 
 var _ApproveCodeRequest_Code_Pattern = regexp.MustCompile("^[0-9]{6}$")
 

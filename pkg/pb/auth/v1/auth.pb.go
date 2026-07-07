@@ -866,10 +866,11 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\foperation_id\x18\x02 \x01(\tH\x00R\voperationId\x88\x01\x01B\x0f\n" +
 	"\r_operation_id\"?\n" +
 	"\x1aRequestEmailVerifyResponse\x12!\n" +
-	"\foperation_id\x18\x01 \x01(\tR\voperationId\"\xd8\x02\n" +
-	"\x12ApproveCodeRequest\x12\x83\x01\n" +
-	"\fphone_number\x18\x01 \x01(\tB[\xfaBXrV(\x182R^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$H\x00R\vphoneNumber\x88\x01\x01\x12U\n" +
-	"\x05email\x18\x03 \x01(\tB:\xfaB7r5\x18\xc0\x0220^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$H\x01R\x05email\x88\x01\x01\x12'\n" +
+	"\foperation_id\x18\x01 \x01(\tR\voperationId\"\xae\x02\n" +
+	"\x12ApproveCodeRequest\x12\x86\x01\n" +
+	"\fphone_number\x18\x01 \x01(\tB^\xfaB[rY(\x182R^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$\xd0\x01\x01H\x00R\vphoneNumber\x88\x01\x01\x12(\n" +
+	"\x05email\x18\x03 \x01(\tB\r\xfaB\n" +
+	"r\b\x18\xc0\x02\xd0\x01\x01`\x01H\x01R\x05email\x88\x01\x01\x12'\n" +
 	"\x04code\x18\x02 \x01(\tB\x13\xfaB\x10r\x0e\x10\x062\n" +
 	"^[0-9]{6}$R\x04code\x12!\n" +
 	"\foperation_id\x18\x04 \x01(\tR\voperationIdB\x0f\n" +

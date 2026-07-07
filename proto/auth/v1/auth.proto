@@ -86,12 +86,14 @@ message ApproveCodeRequest {
   optional string phone_number = 1 [
     (validate.rules).string = {
       pattern: "^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$",
+      ignore_empty: true,
       max_bytes: 24,
     }
   ];
   optional string email = 3 [
     (validate.rules).string = {
-      pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+      email: true,
+      ignore_empty: true,
       max_len: 320,
     }
   ];
