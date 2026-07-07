@@ -680,6 +680,245 @@ var _ interface {
 	ErrorName() string
 } = ApproveCodeResponseValidationError{}
 
+// Validate checks the field values on LoginVerifyRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *LoginVerifyRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on LoginVerifyRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// LoginVerifyRequestMultiError, or nil if none found.
+func (m *LoginVerifyRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *LoginVerifyRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for VerifyToken
+
+	if len(errors) > 0 {
+		return LoginVerifyRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// LoginVerifyRequestMultiError is an error wrapping multiple validation errors
+// returned by LoginVerifyRequest.ValidateAll() if the designated constraints
+// aren't met.
+type LoginVerifyRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m LoginVerifyRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m LoginVerifyRequestMultiError) AllErrors() []error { return m }
+
+// LoginVerifyRequestValidationError is the validation error returned by
+// LoginVerifyRequest.Validate if the designated constraints aren't met.
+type LoginVerifyRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e LoginVerifyRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e LoginVerifyRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e LoginVerifyRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e LoginVerifyRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e LoginVerifyRequestValidationError) ErrorName() string {
+	return "LoginVerifyRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e LoginVerifyRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sLoginVerifyRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = LoginVerifyRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = LoginVerifyRequestValidationError{}
+
+// Validate checks the field values on LoginVerifyResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *LoginVerifyResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on LoginVerifyResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// LoginVerifyResponseMultiError, or nil if none found.
+func (m *LoginVerifyResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *LoginVerifyResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for AccessToken
+
+	// no validation rules for RefreshToken
+
+	if all {
+		switch v := interface{}(m.GetUser()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, LoginVerifyResponseValidationError{
+					field:  "User",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, LoginVerifyResponseValidationError{
+					field:  "User",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUser()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return LoginVerifyResponseValidationError{
+				field:  "User",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return LoginVerifyResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// LoginVerifyResponseMultiError is an error wrapping multiple validation
+// errors returned by LoginVerifyResponse.ValidateAll() if the designated
+// constraints aren't met.
+type LoginVerifyResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m LoginVerifyResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m LoginVerifyResponseMultiError) AllErrors() []error { return m }
+
+// LoginVerifyResponseValidationError is the validation error returned by
+// LoginVerifyResponse.Validate if the designated constraints aren't met.
+type LoginVerifyResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e LoginVerifyResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e LoginVerifyResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e LoginVerifyResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e LoginVerifyResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e LoginVerifyResponseValidationError) ErrorName() string {
+	return "LoginVerifyResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e LoginVerifyResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sLoginVerifyResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = LoginVerifyResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = LoginVerifyResponseValidationError{}
+
 // Validate checks the field values on VerifyEmailRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1164,6 +1403,10 @@ func (m *AuthResponse) validate(all bool) error {
 				cause:  err,
 			}
 		}
+	}
+
+	if m.OperationId != nil {
+		// no validation rules for OperationId
 	}
 
 	if len(errors) > 0 {
