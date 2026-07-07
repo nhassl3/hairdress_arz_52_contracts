@@ -115,7 +115,7 @@ message VerifyEmailRequest {
 message VerifyEmailResponse {
   string access_token = 1;
   string refresh_token = 2;
-  bool success = 3;
+  reserved 3;
 }
 
 message RegisterRequest {

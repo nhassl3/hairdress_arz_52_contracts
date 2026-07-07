@@ -280,7 +280,6 @@ type VerifyEmailResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	AccessToken   string                 `protobuf:"bytes,1,opt,name=access_token,json=accessToken,proto3" json:"access_token,omitempty"`
 	RefreshToken  string                 `protobuf:"bytes,2,opt,name=refresh_token,json=refreshToken,proto3" json:"refresh_token,omitempty"`
-	Success       bool                   `protobuf:"varint,3,opt,name=success,proto3" json:"success,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -327,13 +326,6 @@ func (x *VerifyEmailResponse) GetRefreshToken() string {
 		return x.RefreshToken
 	}
 	return ""
-}
-
-func (x *VerifyEmailResponse) GetSuccess() bool {
-	if x != nil {
-		return x.Success
-	}
-	return false
 }
 
 type RegisterRequest struct {
@@ -886,11 +878,10 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\x13ApproveCodeResponse\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\"7\n" +
 	"\x12VerifyEmailRequest\x12!\n" +
-	"\fverify_token\x18\x01 \x01(\tR\vverifyToken\"w\n" +
+	"\fverify_token\x18\x01 \x01(\tR\vverifyToken\"c\n" +
 	"\x13VerifyEmailResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
-	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12\x18\n" +
-	"\asuccess\x18\x03 \x01(\bR\asuccess\"\xfc\x01\n" +
+	"\rrefresh_token\x18\x02 \x01(\tR\frefreshTokenJ\x04\b\x03\x10\x04\"\xfc\x01\n" +
 	"\x0fRegisterRequest\x12G\n" +
 	"\busername\x18\x01 \x01(\tB+\xfaB(r&(\x80\x022!^[a-zA-Z0-9]+([-_][a-zA-Z0-9]+)*$R\busername\x12~\n" +
 	"\fphone_number\x18\x02 \x01(\tB[\xfaBXrV(\x182R^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$R\vphoneNumber\x12 \n" +

@@ -749,8 +749,6 @@ func (m *VerifyEmailResponse) validate(all bool) error {
 
 	// no validation rules for RefreshToken
 
-	// no validation rules for Success
-
 	if len(errors) > 0 {
 		return VerifyEmailResponseMultiError(errors)
 	}
