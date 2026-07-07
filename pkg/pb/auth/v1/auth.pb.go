@@ -860,10 +860,10 @@ var File_auth_v1_auth_proto protoreflect.FileDescriptor
 
 const file_auth_v1_auth_proto_rawDesc = "" +
 	"\n" +
-	"\x12auth/v1/auth.proto\x12\aauth.v1\x1a'googleapis/google/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17validate/validate.proto\"\xa8\x01\n" +
+	"\x12auth/v1/auth.proto\x12\aauth.v1\x1a'googleapis/google/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x17validate/validate.proto\"\xb2\x01\n" +
 	"\x19RequestEmailVerifyRequest\x12R\n" +
-	"\x05email\x18\x01 \x01(\tB<\xfaB9r7\x18\xc0\x0220^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$`\x01R\x05email\x12&\n" +
-	"\foperation_id\x18\x02 \x01(\tH\x00R\voperationId\x88\x01\x01B\x0f\n" +
+	"\x05email\x18\x01 \x01(\tB<\xfaB9r7\x18\xc0\x0220^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$`\x01R\x05email\x120\n" +
+	"\foperation_id\x18\x02 \x01(\tB\b\xfaB\x05r\x03\xd0\x01\x01H\x00R\voperationId\x88\x01\x01B\x0f\n" +
 	"\r_operation_id\"?\n" +
 	"\x1aRequestEmailVerifyResponse\x12!\n" +
 	"\foperation_id\x18\x01 \x01(\tR\voperationId\"\xae\x02\n" +
@@ -891,12 +891,12 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\fAuthResponse\x12!\n" +
 	"\faccess_token\x18\x01 \x01(\tR\vaccessToken\x12#\n" +
 	"\rrefresh_token\x18\x02 \x01(\tR\frefreshToken\x12%\n" +
-	"\x04user\x18\x03 \x01(\v2\x11.auth.v1.UserInfoR\x04user\"\x84\x02\n" +
-	"\fLoginRequest\x12\x83\x01\n" +
-	"\fphone_number\x18\x01 \x01(\tB[\xfaBXrV(\x182R^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$H\x00R\vphoneNumber\x88\x01\x01\x12\x1f\n" +
-	"\busername\x18\x02 \x01(\tH\x01R\busername\x88\x01\x01\x12%\n" +
-	"\x05email\x18\x03 \x01(\tB\n" +
-	"\xfaB\ar\x05\x18\xc0\x02`\x01H\x02R\x05email\x88\x01\x01B\x0f\n" +
+	"\x04user\x18\x03 \x01(\v2\x11.auth.v1.UserInfoR\x04user\"\x94\x02\n" +
+	"\fLoginRequest\x12\x86\x01\n" +
+	"\fphone_number\x18\x01 \x01(\tB^\xfaB[rY(\x182R^(\\+7|8|7)[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$\xd0\x01\x01H\x00R\vphoneNumber\x88\x01\x01\x12)\n" +
+	"\busername\x18\x02 \x01(\tB\b\xfaB\x05r\x03\xd0\x01\x01H\x01R\busername\x88\x01\x01\x12(\n" +
+	"\x05email\x18\x03 \x01(\tB\r\xfaB\n" +
+	"r\b\x18\xc0\x02\xd0\x01\x01`\x01H\x02R\x05email\x88\x01\x01B\x0f\n" +
 	"\r_phone_numberB\v\n" +
 	"\t_usernameB\b\n" +
 	"\x06_email\"\x0f\n" +

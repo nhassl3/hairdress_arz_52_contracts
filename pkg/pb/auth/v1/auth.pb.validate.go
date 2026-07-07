@@ -92,7 +92,11 @@ func (m *RequestEmailVerifyRequest) validate(all bool) error {
 	}
 
 	if m.OperationId != nil {
-		// no validation rules for OperationId
+
+		if m.GetOperationId() != "" {
+
+		}
+
 	}
 
 	if len(errors) > 0 {
@@ -1263,57 +1267,69 @@ func (m *LoginRequest) validate(all bool) error {
 
 	if m.PhoneNumber != nil {
 
-		if len(m.GetPhoneNumber()) > 24 {
-			err := LoginRequestValidationError{
-				field:  "PhoneNumber",
-				reason: "value length must be at most 24 bytes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+		if m.GetPhoneNumber() != "" {
 
-		if !_LoginRequest_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
-			err := LoginRequestValidationError{
-				field:  "PhoneNumber",
-				reason: "value does not match regex pattern \"^(\\\\+7|8|7)[\\\\s\\\\-]?\\\\(?[489][0-9]{2}\\\\)?[\\\\s\\\\-]?[0-9]{3}[\\\\s\\\\-]?[0-9]{2}[\\\\s\\\\-]?[0-9]{2}$\"",
+			if len(m.GetPhoneNumber()) > 24 {
+				err := LoginRequestValidationError{
+					field:  "PhoneNumber",
+					reason: "value length must be at most 24 bytes",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
 			}
-			if !all {
-				return err
+
+			if !_LoginRequest_PhoneNumber_Pattern.MatchString(m.GetPhoneNumber()) {
+				err := LoginRequestValidationError{
+					field:  "PhoneNumber",
+					reason: "value does not match regex pattern \"^(\\\\+7|8|7)[\\\\s\\\\-]?\\\\(?[489][0-9]{2}\\\\)?[\\\\s\\\\-]?[0-9]{3}[\\\\s\\\\-]?[0-9]{2}[\\\\s\\\\-]?[0-9]{2}$\"",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
 			}
-			errors = append(errors, err)
+
 		}
 
 	}
 
 	if m.Username != nil {
-		// no validation rules for Username
+
+		if m.GetUsername() != "" {
+
+		}
+
 	}
 
 	if m.Email != nil {
 
-		if utf8.RuneCountInString(m.GetEmail()) > 320 {
-			err := LoginRequestValidationError{
-				field:  "Email",
-				reason: "value length must be at most 320 runes",
-			}
-			if !all {
-				return err
-			}
-			errors = append(errors, err)
-		}
+		if m.GetEmail() != "" {
 
-		if err := m._validateEmail(m.GetEmail()); err != nil {
-			err = LoginRequestValidationError{
-				field:  "Email",
-				reason: "value must be a valid email address",
-				cause:  err,
+			if utf8.RuneCountInString(m.GetEmail()) > 320 {
+				err := LoginRequestValidationError{
+					field:  "Email",
+					reason: "value length must be at most 320 runes",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
 			}
-			if !all {
-				return err
+
+			if err := m._validateEmail(m.GetEmail()); err != nil {
+				err = LoginRequestValidationError{
+					field:  "Email",
+					reason: "value must be a valid email address",
+					cause:  err,
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
 			}
-			errors = append(errors, err)
+
 		}
 
 	}
