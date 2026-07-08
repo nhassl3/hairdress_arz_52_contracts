@@ -1106,15 +1106,15 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt2\xb8\a\n" +
+	"updated_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt2\xba\a\n" +
 	"\vAuthService\x12]\n" +
 	"\bRegister\x12\x18.auth.v1.RegisterRequest\x1a\x15.auth.v1.AuthResponse\" \x82\xd3\xe4\x93\x02\x1a:\x01*\"\x15/api/v1/auth/register\x12T\n" +
 	"\x05Login\x12\x15.auth.v1.LoginRequest\x1a\x15.auth.v1.AuthResponse\"\x1d\x82\xd3\xe4\x93\x02\x17:\x01*\"\x12/api/v1/auth/login\x12Y\n" +
 	"\x06Logout\x12\x16.auth.v1.LogoutRequest\x1a\x17.auth.v1.LogoutResponse\"\x1e\x82\xd3\xe4\x93\x02\x18:\x01*\"\x13/api/v1/auth/logout\x12l\n" +
 	"\fRefreshToken\x12\x1c.auth.v1.RefreshTokenRequest\x1a\x1d.auth.v1.RefreshTokenResponse\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\"\x14/api/v1/auth/refresh\x12O\n" +
 	"\x05GetMe\x12\x15.auth.v1.GetMeRequest\x1a\x16.auth.v1.GetMeResponse\"\x17\x82\xd3\xe4\x93\x02\x11\x12\x0f/api/v1/auth/me\x12\x8b\x01\n" +
-	"\x12RequestEmailVerify\x12\".auth.v1.RequestEmailVerifyRequest\x1a#.auth.v1.RequestEmailVerifyResponse\",\x82\xd3\xe4\x93\x02&:\x01*\"!/api/v1/auth/request-email-verify\x12l\n" +
-	"\vApproveCode\x12\x1b.auth.v1.ApproveCodeRequest\x1a\x1c.auth.v1.ApproveCodeResponse\"\"\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/api/v1/auth/sms/verify\x12n\n" +
+	"\x12RequestEmailVerify\x12\".auth.v1.RequestEmailVerifyRequest\x1a#.auth.v1.RequestEmailVerifyResponse\",\x82\xd3\xe4\x93\x02&:\x01*\"!/api/v1/auth/request-email-verify\x12n\n" +
+	"\vApproveCode\x12\x1b.auth.v1.ApproveCodeRequest\x1a\x1c.auth.v1.ApproveCodeResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/auth/approve-code\x12n\n" +
 	"\vVerifyEmail\x12\x1b.auth.v1.VerifyEmailRequest\x1a\x1c.auth.v1.VerifyEmailResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/auth/email/verify\x12n\n" +
 	"\vLoginVerify\x12\x1b.auth.v1.LoginVerifyRequest\x1a\x1c.auth.v1.LoginVerifyResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/auth/login/verifyB;Z9github.com/nhassl3/hairdress_arz_52/pkg/pb/auth/v1;authv1b\x06proto3"
 
