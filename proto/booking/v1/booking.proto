@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package booking.v1;
+
+import "googleapis/google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/nhassl3/hairdress_arz_52/pkg/pb/booking/v1;bookingv1";
+
+service BookingService{
+  rpc CreateBooking(CreateBookingRequest) returns (CreateBookingResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/booking/create"
+      body: "*"
+    };
+  }
+
+  rpc GetBooking(GetBookingRequest) returns (GetBookingResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/booking"
+    };
+  }
+}
+
+message CreateBookingRequest {
+  string username = 1;
+  string hairdresser_id = 2;
+  int32 service_id = 3;
+  int32 salon_id = 4;
+  google.protobuf.Timestamp starts_at = 5;
+  google.protobuf.Timestamp ends_at = 6;
+  string description = 7;
+  StatusBooking status = 8;
+}
+
+message CreateBookingResponse {
+  Bookings booking = 1;
+}
+
+message GetBookingRequest {
+  oneof method {
+    string username = 1;
+    int32 id = 2;
+    string hairdresser_id = 3;
+    int32 service_id= 4;
+    int32 salon_id = 5;
+  }
+}
+
+message GetBookingResponse {
+  repeated Bookings bookings = 1;
+}
+
+enum StatusBooking {
+  BOOKING_STATUS_UNSPECIFIED = 0;
+  BOOKING_STATUS_PENDING = 1;
+  BOOKING_STATUS_CONFIRMED = 2;
+  BOOKING_STATUS_COMPLETED = 3;
+  BOOKING_STATUS_CANCELLED = 4;
+  BOOKING_STATUS_NO_SHOW = 5;
+}
+
+message Bookings {
+  string username = 1;
+  string hairdresser_id = 2;
+  int32 service_id = 3;
+  int32 salon_id = 4;
+  google.protobuf.Timestamp starts_at = 5;
+  google.protobuf.Timestamp ends_at = 6;
+  string description = 7;
+  StatusBooking status = 8;
+  google.protobuf.Timestamp created_at = 9;
+  google.protobuf.Timestamp updated_at = 10;
+}
