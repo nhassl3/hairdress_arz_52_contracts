@@ -40,7 +40,7 @@ message CreateBookingResponse {
 message GetBookingRequest {
   oneof method {
     string username = 1;
-    int32 id = 2;
+    int64 id = 2;
     string hairdresser_id = 3;
     int32 service_id= 4;
     int32 salon_id = 5;
@@ -61,6 +61,7 @@ enum StatusBooking {
 }
 
 message Bookings {
+  int64 id = 11;
   string username = 1;
   string hairdresser_id = 2;
   int32 service_id = 3;

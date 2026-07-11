@@ -285,7 +285,7 @@ func (x *GetBookingRequest) GetUsername() string {
 	return ""
 }
 
-func (x *GetBookingRequest) GetId() int32 {
+func (x *GetBookingRequest) GetId() int64 {
 	if x != nil {
 		if x, ok := x.Method.(*GetBookingRequest_Id); ok {
 			return x.Id
@@ -330,7 +330,7 @@ type GetBookingRequest_Username struct {
 }
 
 type GetBookingRequest_Id struct {
-	Id int32 `protobuf:"varint,2,opt,name=id,proto3,oneof"`
+	Id int64 `protobuf:"varint,2,opt,name=id,proto3,oneof"`
 }
 
 type GetBookingRequest_HairdresserId struct {
@@ -401,6 +401,7 @@ func (x *GetBookingResponse) GetBookings() []*Bookings {
 
 type Bookings struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,11,opt,name=id,proto3" json:"id,omitempty"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
 	HairdresserId string                 `protobuf:"bytes,2,opt,name=hairdresser_id,json=hairdresserId,proto3" json:"hairdresser_id,omitempty"`
 	ServiceId     int32                  `protobuf:"varint,3,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
@@ -443,6 +444,13 @@ func (x *Bookings) ProtoReflect() protoreflect.Message {
 // Deprecated: Use Bookings.ProtoReflect.Descriptor instead.
 func (*Bookings) Descriptor() ([]byte, []int) {
 	return file_booking_v1_booking_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *Bookings) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
 }
 
 func (x *Bookings) GetUsername() string {
@@ -535,15 +543,16 @@ const file_booking_v1_booking_proto_rawDesc = "" +
 	"\abooking\x18\x01 \x01(\v2\x14.booking.v1.BookingsR\abooking\"\xb4\x01\n" +
 	"\x11GetBookingRequest\x12\x1c\n" +
 	"\busername\x18\x01 \x01(\tH\x00R\busername\x12\x10\n" +
-	"\x02id\x18\x02 \x01(\x05H\x00R\x02id\x12'\n" +
+	"\x02id\x18\x02 \x01(\x03H\x00R\x02id\x12'\n" +
 	"\x0ehairdresser_id\x18\x03 \x01(\tH\x00R\rhairdresserId\x12\x1f\n" +
 	"\n" +
 	"service_id\x18\x04 \x01(\x05H\x00R\tserviceId\x12\x1b\n" +
 	"\bsalon_id\x18\x05 \x01(\x05H\x00R\asalonIdB\b\n" +
 	"\x06method\"F\n" +
 	"\x12GetBookingResponse\x120\n" +
-	"\bbookings\x18\x01 \x03(\v2\x14.booking.v1.BookingsR\bbookings\"\xc0\x03\n" +
-	"\bBookings\x12\x1a\n" +
+	"\bbookings\x18\x01 \x03(\v2\x14.booking.v1.BookingsR\bbookings\"\xd0\x03\n" +
+	"\bBookings\x12\x0e\n" +
+	"\x02id\x18\v \x01(\x03R\x02id\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12%\n" +
 	"\x0ehairdresser_id\x18\x02 \x01(\tR\rhairdresserId\x12\x1d\n" +
 	"\n" +
