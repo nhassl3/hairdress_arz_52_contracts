@@ -15,9 +15,16 @@ service BookingService{
     };
   }
 
-  rpc GetBooking(GetBookingRequest) returns (GetBookingResponse) {
+  rpc GetBookings(GetBookingRequest) returns (GetBookingResponse) {
     option (google.api.http) = {
       get: "/api/v1/booking"
+    };
+  }
+
+  rpc UpdateBookingStatus(UpdateBookingStatusRequest) returns (UpdateBookingStatusResponse) {
+    option (google.api.http) = {
+      patch: "/api/v1/booking",
+      body: "*"
     };
   }
 }
@@ -45,6 +52,41 @@ message GetBookingRequest {
     int32 service_id= 4;
     int32 salon_id = 5;
   }
+}
+
+message FindByUsername {
+  string username = 1;
+  google.protobuf.Timestamp starts_at = 2;
+}
+
+message FindByHairdresser {
+  string hairdresser_id = 1;
+  google.protobuf.Timestamp starts_at = 2;
+}
+
+message FindByService {
+  int32 service_id = 1;
+  google.protobuf.Timestamp starts_at = 2;
+}
+
+message FindBySalon {
+  int32 salon_id = 1;
+  google.protobuf.Timestamp starts_at = 2;
+}
+
+message UpdateBookingStatusRequest {
+  oneof method {
+    FindByUsername find_by_username = 1;
+    int64 id = 2;
+    FindByHairdresser find_by_hairdresser = 3;
+    FindByService find_by_service = 4;
+    FindBySalon find_by_salon = 5;
+  }
+  StatusBooking new_status = 6;
+}
+
+message UpdateBookingStatusResponse {
+  Bookings booking = 1;
 }
 
 message GetBookingResponse {

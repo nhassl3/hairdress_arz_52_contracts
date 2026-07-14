@@ -505,6 +505,948 @@ var _ interface {
 	ErrorName() string
 } = GetBookingRequestValidationError{}
 
+// Validate checks the field values on FindByUsername with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *FindByUsername) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on FindByUsername with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in FindByUsernameMultiError,
+// or nil if none found.
+func (m *FindByUsername) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *FindByUsername) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Username
+
+	if all {
+		switch v := interface{}(m.GetStartsAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, FindByUsernameValidationError{
+					field:  "StartsAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, FindByUsernameValidationError{
+					field:  "StartsAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStartsAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return FindByUsernameValidationError{
+				field:  "StartsAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return FindByUsernameMultiError(errors)
+	}
+
+	return nil
+}
+
+// FindByUsernameMultiError is an error wrapping multiple validation errors
+// returned by FindByUsername.ValidateAll() if the designated constraints
+// aren't met.
+type FindByUsernameMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m FindByUsernameMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m FindByUsernameMultiError) AllErrors() []error { return m }
+
+// FindByUsernameValidationError is the validation error returned by
+// FindByUsername.Validate if the designated constraints aren't met.
+type FindByUsernameValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FindByUsernameValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FindByUsernameValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FindByUsernameValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FindByUsernameValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FindByUsernameValidationError) ErrorName() string { return "FindByUsernameValidationError" }
+
+// Error satisfies the builtin error interface
+func (e FindByUsernameValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFindByUsername.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FindByUsernameValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FindByUsernameValidationError{}
+
+// Validate checks the field values on FindByHairdresser with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *FindByHairdresser) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on FindByHairdresser with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// FindByHairdresserMultiError, or nil if none found.
+func (m *FindByHairdresser) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *FindByHairdresser) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for HairdresserId
+
+	if all {
+		switch v := interface{}(m.GetStartsAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, FindByHairdresserValidationError{
+					field:  "StartsAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, FindByHairdresserValidationError{
+					field:  "StartsAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStartsAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return FindByHairdresserValidationError{
+				field:  "StartsAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return FindByHairdresserMultiError(errors)
+	}
+
+	return nil
+}
+
+// FindByHairdresserMultiError is an error wrapping multiple validation errors
+// returned by FindByHairdresser.ValidateAll() if the designated constraints
+// aren't met.
+type FindByHairdresserMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m FindByHairdresserMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m FindByHairdresserMultiError) AllErrors() []error { return m }
+
+// FindByHairdresserValidationError is the validation error returned by
+// FindByHairdresser.Validate if the designated constraints aren't met.
+type FindByHairdresserValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FindByHairdresserValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FindByHairdresserValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FindByHairdresserValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FindByHairdresserValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FindByHairdresserValidationError) ErrorName() string {
+	return "FindByHairdresserValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e FindByHairdresserValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFindByHairdresser.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FindByHairdresserValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FindByHairdresserValidationError{}
+
+// Validate checks the field values on FindByService with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *FindByService) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on FindByService with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in FindByServiceMultiError, or
+// nil if none found.
+func (m *FindByService) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *FindByService) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ServiceId
+
+	if all {
+		switch v := interface{}(m.GetStartsAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, FindByServiceValidationError{
+					field:  "StartsAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, FindByServiceValidationError{
+					field:  "StartsAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStartsAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return FindByServiceValidationError{
+				field:  "StartsAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return FindByServiceMultiError(errors)
+	}
+
+	return nil
+}
+
+// FindByServiceMultiError is an error wrapping multiple validation errors
+// returned by FindByService.ValidateAll() if the designated constraints
+// aren't met.
+type FindByServiceMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m FindByServiceMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m FindByServiceMultiError) AllErrors() []error { return m }
+
+// FindByServiceValidationError is the validation error returned by
+// FindByService.Validate if the designated constraints aren't met.
+type FindByServiceValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FindByServiceValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FindByServiceValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FindByServiceValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FindByServiceValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FindByServiceValidationError) ErrorName() string { return "FindByServiceValidationError" }
+
+// Error satisfies the builtin error interface
+func (e FindByServiceValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFindByService.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FindByServiceValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FindByServiceValidationError{}
+
+// Validate checks the field values on FindBySalon with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *FindBySalon) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on FindBySalon with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in FindBySalonMultiError, or
+// nil if none found.
+func (m *FindBySalon) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *FindBySalon) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for SalonId
+
+	if all {
+		switch v := interface{}(m.GetStartsAt()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, FindBySalonValidationError{
+					field:  "StartsAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, FindBySalonValidationError{
+					field:  "StartsAt",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStartsAt()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return FindBySalonValidationError{
+				field:  "StartsAt",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return FindBySalonMultiError(errors)
+	}
+
+	return nil
+}
+
+// FindBySalonMultiError is an error wrapping multiple validation errors
+// returned by FindBySalon.ValidateAll() if the designated constraints aren't met.
+type FindBySalonMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m FindBySalonMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m FindBySalonMultiError) AllErrors() []error { return m }
+
+// FindBySalonValidationError is the validation error returned by
+// FindBySalon.Validate if the designated constraints aren't met.
+type FindBySalonValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FindBySalonValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FindBySalonValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FindBySalonValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FindBySalonValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FindBySalonValidationError) ErrorName() string { return "FindBySalonValidationError" }
+
+// Error satisfies the builtin error interface
+func (e FindBySalonValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFindBySalon.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FindBySalonValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FindBySalonValidationError{}
+
+// Validate checks the field values on UpdateBookingStatusRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateBookingStatusRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateBookingStatusRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateBookingStatusRequestMultiError, or nil if none found.
+func (m *UpdateBookingStatusRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateBookingStatusRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for NewStatus
+
+	switch v := m.Method.(type) {
+	case *UpdateBookingStatusRequest_FindByUsername:
+		if v == nil {
+			err := UpdateBookingStatusRequestValidationError{
+				field:  "Method",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetFindByUsername()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UpdateBookingStatusRequestValidationError{
+						field:  "FindByUsername",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UpdateBookingStatusRequestValidationError{
+						field:  "FindByUsername",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetFindByUsername()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UpdateBookingStatusRequestValidationError{
+					field:  "FindByUsername",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *UpdateBookingStatusRequest_Id:
+		if v == nil {
+			err := UpdateBookingStatusRequestValidationError{
+				field:  "Method",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+		// no validation rules for Id
+	case *UpdateBookingStatusRequest_FindByHairdresser:
+		if v == nil {
+			err := UpdateBookingStatusRequestValidationError{
+				field:  "Method",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetFindByHairdresser()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UpdateBookingStatusRequestValidationError{
+						field:  "FindByHairdresser",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UpdateBookingStatusRequestValidationError{
+						field:  "FindByHairdresser",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetFindByHairdresser()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UpdateBookingStatusRequestValidationError{
+					field:  "FindByHairdresser",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *UpdateBookingStatusRequest_FindByService:
+		if v == nil {
+			err := UpdateBookingStatusRequestValidationError{
+				field:  "Method",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetFindByService()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UpdateBookingStatusRequestValidationError{
+						field:  "FindByService",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UpdateBookingStatusRequestValidationError{
+						field:  "FindByService",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetFindByService()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UpdateBookingStatusRequestValidationError{
+					field:  "FindByService",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *UpdateBookingStatusRequest_FindBySalon:
+		if v == nil {
+			err := UpdateBookingStatusRequestValidationError{
+				field:  "Method",
+				reason: "oneof value cannot be a typed-nil",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+		if all {
+			switch v := interface{}(m.GetFindBySalon()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UpdateBookingStatusRequestValidationError{
+						field:  "FindBySalon",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UpdateBookingStatusRequestValidationError{
+						field:  "FindBySalon",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetFindBySalon()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UpdateBookingStatusRequestValidationError{
+					field:  "FindBySalon",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	default:
+		_ = v // ensures v is used
+	}
+
+	if len(errors) > 0 {
+		return UpdateBookingStatusRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateBookingStatusRequestMultiError is an error wrapping multiple
+// validation errors returned by UpdateBookingStatusRequest.ValidateAll() if
+// the designated constraints aren't met.
+type UpdateBookingStatusRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateBookingStatusRequestMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateBookingStatusRequestMultiError) AllErrors() []error { return m }
+
+// UpdateBookingStatusRequestValidationError is the validation error returned
+// by UpdateBookingStatusRequest.Validate if the designated constraints aren't met.
+type UpdateBookingStatusRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateBookingStatusRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateBookingStatusRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateBookingStatusRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateBookingStatusRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateBookingStatusRequestValidationError) ErrorName() string {
+	return "UpdateBookingStatusRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateBookingStatusRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateBookingStatusRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateBookingStatusRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateBookingStatusRequestValidationError{}
+
+// Validate checks the field values on UpdateBookingStatusResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateBookingStatusResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateBookingStatusResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateBookingStatusResponseMultiError, or nil if none found.
+func (m *UpdateBookingStatusResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateBookingStatusResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetBooking()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateBookingStatusResponseValidationError{
+					field:  "Booking",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateBookingStatusResponseValidationError{
+					field:  "Booking",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetBooking()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateBookingStatusResponseValidationError{
+				field:  "Booking",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UpdateBookingStatusResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateBookingStatusResponseMultiError is an error wrapping multiple
+// validation errors returned by UpdateBookingStatusResponse.ValidateAll() if
+// the designated constraints aren't met.
+type UpdateBookingStatusResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateBookingStatusResponseMultiError) Error() string {
+	msgs := make([]string, 0, len(m))
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateBookingStatusResponseMultiError) AllErrors() []error { return m }
+
+// UpdateBookingStatusResponseValidationError is the validation error returned
+// by UpdateBookingStatusResponse.Validate if the designated constraints
+// aren't met.
+type UpdateBookingStatusResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateBookingStatusResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateBookingStatusResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateBookingStatusResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateBookingStatusResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateBookingStatusResponseValidationError) ErrorName() string {
+	return "UpdateBookingStatusResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateBookingStatusResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateBookingStatusResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateBookingStatusResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateBookingStatusResponseValidationError{}
+
 // Validate checks the field values on GetBookingResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.

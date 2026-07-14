@@ -355,6 +355,396 @@ func (*GetBookingRequest_ServiceId) isGetBookingRequest_Method() {}
 
 func (*GetBookingRequest_SalonId) isGetBookingRequest_Method() {}
 
+type FindByUsername struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+	StartsAt      *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=starts_at,json=startsAt,proto3" json:"starts_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FindByUsername) Reset() {
+	*x = FindByUsername{}
+	mi := &file_booking_v1_booking_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FindByUsername) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FindByUsername) ProtoMessage() {}
+
+func (x *FindByUsername) ProtoReflect() protoreflect.Message {
+	mi := &file_booking_v1_booking_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FindByUsername.ProtoReflect.Descriptor instead.
+func (*FindByUsername) Descriptor() ([]byte, []int) {
+	return file_booking_v1_booking_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *FindByUsername) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+func (x *FindByUsername) GetStartsAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.StartsAt
+	}
+	return nil
+}
+
+type FindByHairdresser struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	HairdresserId string                 `protobuf:"bytes,1,opt,name=hairdresser_id,json=hairdresserId,proto3" json:"hairdresser_id,omitempty"`
+	StartsAt      *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=starts_at,json=startsAt,proto3" json:"starts_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FindByHairdresser) Reset() {
+	*x = FindByHairdresser{}
+	mi := &file_booking_v1_booking_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FindByHairdresser) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FindByHairdresser) ProtoMessage() {}
+
+func (x *FindByHairdresser) ProtoReflect() protoreflect.Message {
+	mi := &file_booking_v1_booking_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FindByHairdresser.ProtoReflect.Descriptor instead.
+func (*FindByHairdresser) Descriptor() ([]byte, []int) {
+	return file_booking_v1_booking_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *FindByHairdresser) GetHairdresserId() string {
+	if x != nil {
+		return x.HairdresserId
+	}
+	return ""
+}
+
+func (x *FindByHairdresser) GetStartsAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.StartsAt
+	}
+	return nil
+}
+
+type FindByService struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ServiceId     int32                  `protobuf:"varint,1,opt,name=service_id,json=serviceId,proto3" json:"service_id,omitempty"`
+	StartsAt      *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=starts_at,json=startsAt,proto3" json:"starts_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FindByService) Reset() {
+	*x = FindByService{}
+	mi := &file_booking_v1_booking_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FindByService) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FindByService) ProtoMessage() {}
+
+func (x *FindByService) ProtoReflect() protoreflect.Message {
+	mi := &file_booking_v1_booking_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FindByService.ProtoReflect.Descriptor instead.
+func (*FindByService) Descriptor() ([]byte, []int) {
+	return file_booking_v1_booking_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *FindByService) GetServiceId() int32 {
+	if x != nil {
+		return x.ServiceId
+	}
+	return 0
+}
+
+func (x *FindByService) GetStartsAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.StartsAt
+	}
+	return nil
+}
+
+type FindBySalon struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SalonId       int32                  `protobuf:"varint,1,opt,name=salon_id,json=salonId,proto3" json:"salon_id,omitempty"`
+	StartsAt      *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=starts_at,json=startsAt,proto3" json:"starts_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FindBySalon) Reset() {
+	*x = FindBySalon{}
+	mi := &file_booking_v1_booking_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FindBySalon) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FindBySalon) ProtoMessage() {}
+
+func (x *FindBySalon) ProtoReflect() protoreflect.Message {
+	mi := &file_booking_v1_booking_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FindBySalon.ProtoReflect.Descriptor instead.
+func (*FindBySalon) Descriptor() ([]byte, []int) {
+	return file_booking_v1_booking_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *FindBySalon) GetSalonId() int32 {
+	if x != nil {
+		return x.SalonId
+	}
+	return 0
+}
+
+func (x *FindBySalon) GetStartsAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.StartsAt
+	}
+	return nil
+}
+
+type UpdateBookingStatusRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Types that are valid to be assigned to Method:
+	//
+	//	*UpdateBookingStatusRequest_FindByUsername
+	//	*UpdateBookingStatusRequest_Id
+	//	*UpdateBookingStatusRequest_FindByHairdresser
+	//	*UpdateBookingStatusRequest_FindByService
+	//	*UpdateBookingStatusRequest_FindBySalon
+	Method        isUpdateBookingStatusRequest_Method `protobuf_oneof:"method"`
+	NewStatus     StatusBooking                       `protobuf:"varint,6,opt,name=new_status,json=newStatus,proto3,enum=booking.v1.StatusBooking" json:"new_status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateBookingStatusRequest) Reset() {
+	*x = UpdateBookingStatusRequest{}
+	mi := &file_booking_v1_booking_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateBookingStatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateBookingStatusRequest) ProtoMessage() {}
+
+func (x *UpdateBookingStatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_booking_v1_booking_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateBookingStatusRequest.ProtoReflect.Descriptor instead.
+func (*UpdateBookingStatusRequest) Descriptor() ([]byte, []int) {
+	return file_booking_v1_booking_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UpdateBookingStatusRequest) GetMethod() isUpdateBookingStatusRequest_Method {
+	if x != nil {
+		return x.Method
+	}
+	return nil
+}
+
+func (x *UpdateBookingStatusRequest) GetFindByUsername() *FindByUsername {
+	if x != nil {
+		if x, ok := x.Method.(*UpdateBookingStatusRequest_FindByUsername); ok {
+			return x.FindByUsername
+		}
+	}
+	return nil
+}
+
+func (x *UpdateBookingStatusRequest) GetId() int64 {
+	if x != nil {
+		if x, ok := x.Method.(*UpdateBookingStatusRequest_Id); ok {
+			return x.Id
+		}
+	}
+	return 0
+}
+
+func (x *UpdateBookingStatusRequest) GetFindByHairdresser() *FindByHairdresser {
+	if x != nil {
+		if x, ok := x.Method.(*UpdateBookingStatusRequest_FindByHairdresser); ok {
+			return x.FindByHairdresser
+		}
+	}
+	return nil
+}
+
+func (x *UpdateBookingStatusRequest) GetFindByService() *FindByService {
+	if x != nil {
+		if x, ok := x.Method.(*UpdateBookingStatusRequest_FindByService); ok {
+			return x.FindByService
+		}
+	}
+	return nil
+}
+
+func (x *UpdateBookingStatusRequest) GetFindBySalon() *FindBySalon {
+	if x != nil {
+		if x, ok := x.Method.(*UpdateBookingStatusRequest_FindBySalon); ok {
+			return x.FindBySalon
+		}
+	}
+	return nil
+}
+
+func (x *UpdateBookingStatusRequest) GetNewStatus() StatusBooking {
+	if x != nil {
+		return x.NewStatus
+	}
+	return StatusBooking_BOOKING_STATUS_UNSPECIFIED
+}
+
+type isUpdateBookingStatusRequest_Method interface {
+	isUpdateBookingStatusRequest_Method()
+}
+
+type UpdateBookingStatusRequest_FindByUsername struct {
+	FindByUsername *FindByUsername `protobuf:"bytes,1,opt,name=find_by_username,json=findByUsername,proto3,oneof"`
+}
+
+type UpdateBookingStatusRequest_Id struct {
+	Id int64 `protobuf:"varint,2,opt,name=id,proto3,oneof"`
+}
+
+type UpdateBookingStatusRequest_FindByHairdresser struct {
+	FindByHairdresser *FindByHairdresser `protobuf:"bytes,3,opt,name=find_by_hairdresser,json=findByHairdresser,proto3,oneof"`
+}
+
+type UpdateBookingStatusRequest_FindByService struct {
+	FindByService *FindByService `protobuf:"bytes,4,opt,name=find_by_service,json=findByService,proto3,oneof"`
+}
+
+type UpdateBookingStatusRequest_FindBySalon struct {
+	FindBySalon *FindBySalon `protobuf:"bytes,5,opt,name=find_by_salon,json=findBySalon,proto3,oneof"`
+}
+
+func (*UpdateBookingStatusRequest_FindByUsername) isUpdateBookingStatusRequest_Method() {}
+
+func (*UpdateBookingStatusRequest_Id) isUpdateBookingStatusRequest_Method() {}
+
+func (*UpdateBookingStatusRequest_FindByHairdresser) isUpdateBookingStatusRequest_Method() {}
+
+func (*UpdateBookingStatusRequest_FindByService) isUpdateBookingStatusRequest_Method() {}
+
+func (*UpdateBookingStatusRequest_FindBySalon) isUpdateBookingStatusRequest_Method() {}
+
+type UpdateBookingStatusResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Booking       *Bookings              `protobuf:"bytes,1,opt,name=booking,proto3" json:"booking,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateBookingStatusResponse) Reset() {
+	*x = UpdateBookingStatusResponse{}
+	mi := &file_booking_v1_booking_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateBookingStatusResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateBookingStatusResponse) ProtoMessage() {}
+
+func (x *UpdateBookingStatusResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_booking_v1_booking_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateBookingStatusResponse.ProtoReflect.Descriptor instead.
+func (*UpdateBookingStatusResponse) Descriptor() ([]byte, []int) {
+	return file_booking_v1_booking_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *UpdateBookingStatusResponse) GetBooking() *Bookings {
+	if x != nil {
+		return x.Booking
+	}
+	return nil
+}
+
 type GetBookingResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Bookings      []*Bookings            `protobuf:"bytes,1,rep,name=bookings,proto3" json:"bookings,omitempty"`
@@ -364,7 +754,7 @@ type GetBookingResponse struct {
 
 func (x *GetBookingResponse) Reset() {
 	*x = GetBookingResponse{}
-	mi := &file_booking_v1_booking_proto_msgTypes[3]
+	mi := &file_booking_v1_booking_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -376,7 +766,7 @@ func (x *GetBookingResponse) String() string {
 func (*GetBookingResponse) ProtoMessage() {}
 
 func (x *GetBookingResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_booking_v1_booking_proto_msgTypes[3]
+	mi := &file_booking_v1_booking_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -389,7 +779,7 @@ func (x *GetBookingResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetBookingResponse.ProtoReflect.Descriptor instead.
 func (*GetBookingResponse) Descriptor() ([]byte, []int) {
-	return file_booking_v1_booking_proto_rawDescGZIP(), []int{3}
+	return file_booking_v1_booking_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *GetBookingResponse) GetBookings() []*Bookings {
@@ -418,7 +808,7 @@ type Bookings struct {
 
 func (x *Bookings) Reset() {
 	*x = Bookings{}
-	mi := &file_booking_v1_booking_proto_msgTypes[4]
+	mi := &file_booking_v1_booking_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -430,7 +820,7 @@ func (x *Bookings) String() string {
 func (*Bookings) ProtoMessage() {}
 
 func (x *Bookings) ProtoReflect() protoreflect.Message {
-	mi := &file_booking_v1_booking_proto_msgTypes[4]
+	mi := &file_booking_v1_booking_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -443,7 +833,7 @@ func (x *Bookings) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Bookings.ProtoReflect.Descriptor instead.
 func (*Bookings) Descriptor() ([]byte, []int) {
-	return file_booking_v1_booking_proto_rawDescGZIP(), []int{4}
+	return file_booking_v1_booking_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *Bookings) GetId() int64 {
@@ -548,7 +938,31 @@ const file_booking_v1_booking_proto_rawDesc = "" +
 	"\n" +
 	"service_id\x18\x04 \x01(\x05H\x00R\tserviceId\x12\x1b\n" +
 	"\bsalon_id\x18\x05 \x01(\x05H\x00R\asalonIdB\b\n" +
-	"\x06method\"F\n" +
+	"\x06method\"e\n" +
+	"\x0eFindByUsername\x12\x1a\n" +
+	"\busername\x18\x01 \x01(\tR\busername\x127\n" +
+	"\tstarts_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\bstartsAt\"s\n" +
+	"\x11FindByHairdresser\x12%\n" +
+	"\x0ehairdresser_id\x18\x01 \x01(\tR\rhairdresserId\x127\n" +
+	"\tstarts_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\bstartsAt\"g\n" +
+	"\rFindByService\x12\x1d\n" +
+	"\n" +
+	"service_id\x18\x01 \x01(\x05R\tserviceId\x127\n" +
+	"\tstarts_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\bstartsAt\"a\n" +
+	"\vFindBySalon\x12\x19\n" +
+	"\bsalon_id\x18\x01 \x01(\x05R\asalonId\x127\n" +
+	"\tstarts_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\bstartsAt\"\x8f\x03\n" +
+	"\x1aUpdateBookingStatusRequest\x12F\n" +
+	"\x10find_by_username\x18\x01 \x01(\v2\x1a.booking.v1.FindByUsernameH\x00R\x0efindByUsername\x12\x10\n" +
+	"\x02id\x18\x02 \x01(\x03H\x00R\x02id\x12O\n" +
+	"\x13find_by_hairdresser\x18\x03 \x01(\v2\x1d.booking.v1.FindByHairdresserH\x00R\x11findByHairdresser\x12C\n" +
+	"\x0ffind_by_service\x18\x04 \x01(\v2\x19.booking.v1.FindByServiceH\x00R\rfindByService\x12=\n" +
+	"\rfind_by_salon\x18\x05 \x01(\v2\x17.booking.v1.FindBySalonH\x00R\vfindBySalon\x128\n" +
+	"\n" +
+	"new_status\x18\x06 \x01(\x0e2\x19.booking.v1.StatusBookingR\tnewStatusB\b\n" +
+	"\x06method\"M\n" +
+	"\x1bUpdateBookingStatusResponse\x12.\n" +
+	"\abooking\x18\x01 \x01(\v2\x14.booking.v1.BookingsR\abooking\"F\n" +
 	"\x12GetBookingResponse\x120\n" +
 	"\bbookings\x18\x01 \x03(\v2\x14.booking.v1.BookingsR\bbookings\"\xd0\x03\n" +
 	"\bBookings\x12\x0e\n" +
@@ -573,11 +987,11 @@ const file_booking_v1_booking_proto_rawDesc = "" +
 	"\x18BOOKING_STATUS_CONFIRMED\x10\x02\x12\x1c\n" +
 	"\x18BOOKING_STATUS_COMPLETED\x10\x03\x12\x1c\n" +
 	"\x18BOOKING_STATUS_CANCELLED\x10\x04\x12\x1a\n" +
-	"\x16BOOKING_STATUS_NO_SHOW\x10\x052\xef\x01\n" +
+	"\x16BOOKING_STATUS_NO_SHOW\x10\x052\xf5\x02\n" +
 	"\x0eBookingService\x12w\n" +
-	"\rCreateBooking\x12 .booking.v1.CreateBookingRequest\x1a!.booking.v1.CreateBookingResponse\"!\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/api/v1/booking/create\x12d\n" +
-	"\n" +
-	"GetBooking\x12\x1d.booking.v1.GetBookingRequest\x1a\x1e.booking.v1.GetBookingResponse\"\x17\x82\xd3\xe4\x93\x02\x11\x12\x0f/api/v1/bookingBAZ?github.com/nhassl3/hairdress_arz_52/pkg/pb/booking/v1;bookingv1b\x06proto3"
+	"\rCreateBooking\x12 .booking.v1.CreateBookingRequest\x1a!.booking.v1.CreateBookingResponse\"!\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/api/v1/booking/create\x12e\n" +
+	"\vGetBookings\x12\x1d.booking.v1.GetBookingRequest\x1a\x1e.booking.v1.GetBookingResponse\"\x17\x82\xd3\xe4\x93\x02\x11\x12\x0f/api/v1/booking\x12\x82\x01\n" +
+	"\x13UpdateBookingStatus\x12&.booking.v1.UpdateBookingStatusRequest\x1a'.booking.v1.UpdateBookingStatusResponse\"\x1a\x82\xd3\xe4\x93\x02\x14:\x01*2\x0f/api/v1/bookingBAZ?github.com/nhassl3/hairdress_arz_52/pkg/pb/booking/v1;bookingv1b\x06proto3"
 
 var (
 	file_booking_v1_booking_proto_rawDescOnce sync.Once
@@ -592,36 +1006,54 @@ func file_booking_v1_booking_proto_rawDescGZIP() []byte {
 }
 
 var file_booking_v1_booking_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_booking_v1_booking_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_booking_v1_booking_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_booking_v1_booking_proto_goTypes = []any{
-	(StatusBooking)(0),            // 0: booking.v1.StatusBooking
-	(*CreateBookingRequest)(nil),  // 1: booking.v1.CreateBookingRequest
-	(*CreateBookingResponse)(nil), // 2: booking.v1.CreateBookingResponse
-	(*GetBookingRequest)(nil),     // 3: booking.v1.GetBookingRequest
-	(*GetBookingResponse)(nil),    // 4: booking.v1.GetBookingResponse
-	(*Bookings)(nil),              // 5: booking.v1.Bookings
-	(*timestamppb.Timestamp)(nil), // 6: google.protobuf.Timestamp
+	(StatusBooking)(0),                  // 0: booking.v1.StatusBooking
+	(*CreateBookingRequest)(nil),        // 1: booking.v1.CreateBookingRequest
+	(*CreateBookingResponse)(nil),       // 2: booking.v1.CreateBookingResponse
+	(*GetBookingRequest)(nil),           // 3: booking.v1.GetBookingRequest
+	(*FindByUsername)(nil),              // 4: booking.v1.FindByUsername
+	(*FindByHairdresser)(nil),           // 5: booking.v1.FindByHairdresser
+	(*FindByService)(nil),               // 6: booking.v1.FindByService
+	(*FindBySalon)(nil),                 // 7: booking.v1.FindBySalon
+	(*UpdateBookingStatusRequest)(nil),  // 8: booking.v1.UpdateBookingStatusRequest
+	(*UpdateBookingStatusResponse)(nil), // 9: booking.v1.UpdateBookingStatusResponse
+	(*GetBookingResponse)(nil),          // 10: booking.v1.GetBookingResponse
+	(*Bookings)(nil),                    // 11: booking.v1.Bookings
+	(*timestamppb.Timestamp)(nil),       // 12: google.protobuf.Timestamp
 }
 var file_booking_v1_booking_proto_depIdxs = []int32{
-	6,  // 0: booking.v1.CreateBookingRequest.starts_at:type_name -> google.protobuf.Timestamp
-	6,  // 1: booking.v1.CreateBookingRequest.ends_at:type_name -> google.protobuf.Timestamp
+	12, // 0: booking.v1.CreateBookingRequest.starts_at:type_name -> google.protobuf.Timestamp
+	12, // 1: booking.v1.CreateBookingRequest.ends_at:type_name -> google.protobuf.Timestamp
 	0,  // 2: booking.v1.CreateBookingRequest.status:type_name -> booking.v1.StatusBooking
-	5,  // 3: booking.v1.CreateBookingResponse.booking:type_name -> booking.v1.Bookings
-	5,  // 4: booking.v1.GetBookingResponse.bookings:type_name -> booking.v1.Bookings
-	6,  // 5: booking.v1.Bookings.starts_at:type_name -> google.protobuf.Timestamp
-	6,  // 6: booking.v1.Bookings.ends_at:type_name -> google.protobuf.Timestamp
-	0,  // 7: booking.v1.Bookings.status:type_name -> booking.v1.StatusBooking
-	6,  // 8: booking.v1.Bookings.created_at:type_name -> google.protobuf.Timestamp
-	6,  // 9: booking.v1.Bookings.updated_at:type_name -> google.protobuf.Timestamp
-	1,  // 10: booking.v1.BookingService.CreateBooking:input_type -> booking.v1.CreateBookingRequest
-	3,  // 11: booking.v1.BookingService.GetBooking:input_type -> booking.v1.GetBookingRequest
-	2,  // 12: booking.v1.BookingService.CreateBooking:output_type -> booking.v1.CreateBookingResponse
-	4,  // 13: booking.v1.BookingService.GetBooking:output_type -> booking.v1.GetBookingResponse
-	12, // [12:14] is the sub-list for method output_type
-	10, // [10:12] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	11, // 3: booking.v1.CreateBookingResponse.booking:type_name -> booking.v1.Bookings
+	12, // 4: booking.v1.FindByUsername.starts_at:type_name -> google.protobuf.Timestamp
+	12, // 5: booking.v1.FindByHairdresser.starts_at:type_name -> google.protobuf.Timestamp
+	12, // 6: booking.v1.FindByService.starts_at:type_name -> google.protobuf.Timestamp
+	12, // 7: booking.v1.FindBySalon.starts_at:type_name -> google.protobuf.Timestamp
+	4,  // 8: booking.v1.UpdateBookingStatusRequest.find_by_username:type_name -> booking.v1.FindByUsername
+	5,  // 9: booking.v1.UpdateBookingStatusRequest.find_by_hairdresser:type_name -> booking.v1.FindByHairdresser
+	6,  // 10: booking.v1.UpdateBookingStatusRequest.find_by_service:type_name -> booking.v1.FindByService
+	7,  // 11: booking.v1.UpdateBookingStatusRequest.find_by_salon:type_name -> booking.v1.FindBySalon
+	0,  // 12: booking.v1.UpdateBookingStatusRequest.new_status:type_name -> booking.v1.StatusBooking
+	11, // 13: booking.v1.UpdateBookingStatusResponse.booking:type_name -> booking.v1.Bookings
+	11, // 14: booking.v1.GetBookingResponse.bookings:type_name -> booking.v1.Bookings
+	12, // 15: booking.v1.Bookings.starts_at:type_name -> google.protobuf.Timestamp
+	12, // 16: booking.v1.Bookings.ends_at:type_name -> google.protobuf.Timestamp
+	0,  // 17: booking.v1.Bookings.status:type_name -> booking.v1.StatusBooking
+	12, // 18: booking.v1.Bookings.created_at:type_name -> google.protobuf.Timestamp
+	12, // 19: booking.v1.Bookings.updated_at:type_name -> google.protobuf.Timestamp
+	1,  // 20: booking.v1.BookingService.CreateBooking:input_type -> booking.v1.CreateBookingRequest
+	3,  // 21: booking.v1.BookingService.GetBookings:input_type -> booking.v1.GetBookingRequest
+	8,  // 22: booking.v1.BookingService.UpdateBookingStatus:input_type -> booking.v1.UpdateBookingStatusRequest
+	2,  // 23: booking.v1.BookingService.CreateBooking:output_type -> booking.v1.CreateBookingResponse
+	10, // 24: booking.v1.BookingService.GetBookings:output_type -> booking.v1.GetBookingResponse
+	9,  // 25: booking.v1.BookingService.UpdateBookingStatus:output_type -> booking.v1.UpdateBookingStatusResponse
+	23, // [23:26] is the sub-list for method output_type
+	20, // [20:23] is the sub-list for method input_type
+	20, // [20:20] is the sub-list for extension type_name
+	20, // [20:20] is the sub-list for extension extendee
+	0,  // [0:20] is the sub-list for field type_name
 }
 
 func init() { file_booking_v1_booking_proto_init() }
@@ -636,13 +1068,20 @@ func file_booking_v1_booking_proto_init() {
 		(*GetBookingRequest_ServiceId)(nil),
 		(*GetBookingRequest_SalonId)(nil),
 	}
+	file_booking_v1_booking_proto_msgTypes[7].OneofWrappers = []any{
+		(*UpdateBookingStatusRequest_FindByUsername)(nil),
+		(*UpdateBookingStatusRequest_Id)(nil),
+		(*UpdateBookingStatusRequest_FindByHairdresser)(nil),
+		(*UpdateBookingStatusRequest_FindByService)(nil),
+		(*UpdateBookingStatusRequest_FindBySalon)(nil),
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_booking_v1_booking_proto_rawDesc), len(file_booking_v1_booking_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   5,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
