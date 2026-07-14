@@ -40,4 +40,4 @@ proto:
 	@echo "Successfully built protocol buffers code files"
 
 evans:
-	@evans --path proto --proto auth/v1/auth.proto --host 127.0.0.1 -p 50051
+	@evans --path proto --proto booking/v1/booking.proto --host 127.0.0.1 -p 50051
