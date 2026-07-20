@@ -90,7 +90,6 @@ type CreateBookingRequest struct {
 	StartsAt      *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=starts_at,json=startsAt,proto3" json:"starts_at,omitempty"`
 	EndsAt        *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=ends_at,json=endsAt,proto3" json:"ends_at,omitempty"`
 	Description   string                 `protobuf:"bytes,7,opt,name=description,proto3" json:"description,omitempty"`
-	Status        StatusBooking          `protobuf:"varint,8,opt,name=status,proto3,enum=booking.v1.StatusBooking" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -172,13 +171,6 @@ func (x *CreateBookingRequest) GetDescription() string {
 		return x.Description
 	}
 	return ""
-}
-
-func (x *CreateBookingRequest) GetStatus() StatusBooking {
-	if x != nil {
-		return x.Status
-	}
-	return StatusBooking_BOOKING_STATUS_UNSPECIFIED
 }
 
 type CreateBookingResponse struct {
@@ -918,7 +910,7 @@ var File_booking_v1_booking_proto protoreflect.FileDescriptor
 const file_booking_v1_booking_proto_rawDesc = "" +
 	"\n" +
 	"\x18booking/v1/booking.proto\x12\n" +
-	"booking.v1\x1a'googleapis/google/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xd6\x02\n" +
+	"booking.v1\x1a'googleapis/google/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xa3\x02\n" +
 	"\x14CreateBookingRequest\x12\x1a\n" +
 	"\busername\x18\x01 \x01(\tR\busername\x12%\n" +
 	"\x0ehairdresser_id\x18\x02 \x01(\tR\rhairdresserId\x12\x1d\n" +
@@ -927,8 +919,7 @@ const file_booking_v1_booking_proto_rawDesc = "" +
 	"\bsalon_id\x18\x04 \x01(\x05R\asalonId\x127\n" +
 	"\tstarts_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\bstartsAt\x123\n" +
 	"\aends_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\x06endsAt\x12 \n" +
-	"\vdescription\x18\a \x01(\tR\vdescription\x121\n" +
-	"\x06status\x18\b \x01(\x0e2\x19.booking.v1.StatusBookingR\x06status\"G\n" +
+	"\vdescription\x18\a \x01(\tR\vdescription\"G\n" +
 	"\x15CreateBookingResponse\x12.\n" +
 	"\abooking\x18\x01 \x01(\v2\x14.booking.v1.BookingsR\abooking\"\xb4\x01\n" +
 	"\x11GetBookingRequest\x12\x1c\n" +
@@ -1025,35 +1016,34 @@ var file_booking_v1_booking_proto_goTypes = []any{
 var file_booking_v1_booking_proto_depIdxs = []int32{
 	12, // 0: booking.v1.CreateBookingRequest.starts_at:type_name -> google.protobuf.Timestamp
 	12, // 1: booking.v1.CreateBookingRequest.ends_at:type_name -> google.protobuf.Timestamp
-	0,  // 2: booking.v1.CreateBookingRequest.status:type_name -> booking.v1.StatusBooking
-	11, // 3: booking.v1.CreateBookingResponse.booking:type_name -> booking.v1.Bookings
-	12, // 4: booking.v1.FindByUsername.starts_at:type_name -> google.protobuf.Timestamp
-	12, // 5: booking.v1.FindByHairdresser.starts_at:type_name -> google.protobuf.Timestamp
-	12, // 6: booking.v1.FindByService.starts_at:type_name -> google.protobuf.Timestamp
-	12, // 7: booking.v1.FindBySalon.starts_at:type_name -> google.protobuf.Timestamp
-	4,  // 8: booking.v1.UpdateBookingStatusRequest.find_by_username:type_name -> booking.v1.FindByUsername
-	5,  // 9: booking.v1.UpdateBookingStatusRequest.find_by_hairdresser:type_name -> booking.v1.FindByHairdresser
-	6,  // 10: booking.v1.UpdateBookingStatusRequest.find_by_service:type_name -> booking.v1.FindByService
-	7,  // 11: booking.v1.UpdateBookingStatusRequest.find_by_salon:type_name -> booking.v1.FindBySalon
-	0,  // 12: booking.v1.UpdateBookingStatusRequest.new_status:type_name -> booking.v1.StatusBooking
-	11, // 13: booking.v1.UpdateBookingStatusResponse.booking:type_name -> booking.v1.Bookings
-	11, // 14: booking.v1.GetBookingResponse.bookings:type_name -> booking.v1.Bookings
-	12, // 15: booking.v1.Bookings.starts_at:type_name -> google.protobuf.Timestamp
-	12, // 16: booking.v1.Bookings.ends_at:type_name -> google.protobuf.Timestamp
-	0,  // 17: booking.v1.Bookings.status:type_name -> booking.v1.StatusBooking
-	12, // 18: booking.v1.Bookings.created_at:type_name -> google.protobuf.Timestamp
-	12, // 19: booking.v1.Bookings.updated_at:type_name -> google.protobuf.Timestamp
-	1,  // 20: booking.v1.BookingService.CreateBooking:input_type -> booking.v1.CreateBookingRequest
-	3,  // 21: booking.v1.BookingService.GetBookings:input_type -> booking.v1.GetBookingRequest
-	8,  // 22: booking.v1.BookingService.UpdateBookingStatus:input_type -> booking.v1.UpdateBookingStatusRequest
-	2,  // 23: booking.v1.BookingService.CreateBooking:output_type -> booking.v1.CreateBookingResponse
-	10, // 24: booking.v1.BookingService.GetBookings:output_type -> booking.v1.GetBookingResponse
-	9,  // 25: booking.v1.BookingService.UpdateBookingStatus:output_type -> booking.v1.UpdateBookingStatusResponse
-	23, // [23:26] is the sub-list for method output_type
-	20, // [20:23] is the sub-list for method input_type
-	20, // [20:20] is the sub-list for extension type_name
-	20, // [20:20] is the sub-list for extension extendee
-	0,  // [0:20] is the sub-list for field type_name
+	11, // 2: booking.v1.CreateBookingResponse.booking:type_name -> booking.v1.Bookings
+	12, // 3: booking.v1.FindByUsername.starts_at:type_name -> google.protobuf.Timestamp
+	12, // 4: booking.v1.FindByHairdresser.starts_at:type_name -> google.protobuf.Timestamp
+	12, // 5: booking.v1.FindByService.starts_at:type_name -> google.protobuf.Timestamp
+	12, // 6: booking.v1.FindBySalon.starts_at:type_name -> google.protobuf.Timestamp
+	4,  // 7: booking.v1.UpdateBookingStatusRequest.find_by_username:type_name -> booking.v1.FindByUsername
+	5,  // 8: booking.v1.UpdateBookingStatusRequest.find_by_hairdresser:type_name -> booking.v1.FindByHairdresser
+	6,  // 9: booking.v1.UpdateBookingStatusRequest.find_by_service:type_name -> booking.v1.FindByService
+	7,  // 10: booking.v1.UpdateBookingStatusRequest.find_by_salon:type_name -> booking.v1.FindBySalon
+	0,  // 11: booking.v1.UpdateBookingStatusRequest.new_status:type_name -> booking.v1.StatusBooking
+	11, // 12: booking.v1.UpdateBookingStatusResponse.booking:type_name -> booking.v1.Bookings
+	11, // 13: booking.v1.GetBookingResponse.bookings:type_name -> booking.v1.Bookings
+	12, // 14: booking.v1.Bookings.starts_at:type_name -> google.protobuf.Timestamp
+	12, // 15: booking.v1.Bookings.ends_at:type_name -> google.protobuf.Timestamp
+	0,  // 16: booking.v1.Bookings.status:type_name -> booking.v1.StatusBooking
+	12, // 17: booking.v1.Bookings.created_at:type_name -> google.protobuf.Timestamp
+	12, // 18: booking.v1.Bookings.updated_at:type_name -> google.protobuf.Timestamp
+	1,  // 19: booking.v1.BookingService.CreateBooking:input_type -> booking.v1.CreateBookingRequest
+	3,  // 20: booking.v1.BookingService.GetBookings:input_type -> booking.v1.GetBookingRequest
+	8,  // 21: booking.v1.BookingService.UpdateBookingStatus:input_type -> booking.v1.UpdateBookingStatusRequest
+	2,  // 22: booking.v1.BookingService.CreateBooking:output_type -> booking.v1.CreateBookingResponse
+	10, // 23: booking.v1.BookingService.GetBookings:output_type -> booking.v1.GetBookingResponse
+	9,  // 24: booking.v1.BookingService.UpdateBookingStatus:output_type -> booking.v1.UpdateBookingStatusResponse
+	22, // [22:25] is the sub-list for method output_type
+	19, // [19:22] is the sub-list for method input_type
+	19, // [19:19] is the sub-list for extension type_name
+	19, // [19:19] is the sub-list for extension extendee
+	0,  // [0:19] is the sub-list for field type_name
 }
 
 func init() { file_booking_v1_booking_proto_init() }

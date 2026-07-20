@@ -37,7 +37,6 @@ message CreateBookingRequest {
   google.protobuf.Timestamp starts_at = 5;
   google.protobuf.Timestamp ends_at = 6;
   string description = 7;
-  StatusBooking status = 8;
 }
 
 message CreateBookingResponse {
